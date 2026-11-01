@@ -406,7 +406,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
     </div>
     <div class="stat-card">
       <div class="n" id="todayChars">0 字</div>
-      <div class="lbl">今日已抄（本次開啟）</div>
+      <div class="lbl">累計已抄 · 本機保存</div>
       <div class="sub" id="todaySub">念珠 0 遍 · 靜坐 0 分鐘</div>
     </div>
   </section>
@@ -433,11 +433,11 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
 
       <div class="total-strip">
         <span aria-hidden="true" style="font-size:26px">📊</span>
-        <div><div class="n" id="homeTotalChars">0 字</div><div class="lbl">總抄寫字數 · 本次開啟累計</div></div>
+        <div><div class="n" id="homeTotalChars">0 字</div><div class="lbl">總抄寫字數 · 本機累計保存</div></div>
       </div>
 
       <button class="global-btn" type="button" id="globalStatsBtn"><span>本機抄寫統計</span><span>查看 ›</span></button>
-      <p class="muted" style="margin:2px 0 0">本頁為單機版，沒有連網伺服器：統計數字為本機本次開啟的累計，不含他人數據。</p>
+      <p class="muted" style="margin:2px 0 0">本頁為單機版，沒有連網伺服器：統計數字為本機保存的累計，關掉再開也還在，不含他人數據。</p>
       <button class="global-btn" type="button" data-share-open style="margin-top:10px"><span>分享這個 App · 內建海報</span><span>打開 ›</span></button>
       <p class="muted" style="margin:2px 0 0">海報在 App 裡直接生成，不含連結與二維碼，點開就能看、下載就能傳。</p>
 
@@ -570,7 +570,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
   <section class="panel" id="panel-read" aria-label="讀經">
     <div class="backbar"><button class="pillbtn" type="button" id="readBackHome">← 回首頁</button><h2>讀經</h2><span class="muted" id="readMeta">心經 · 全文</span></div>
     <button class="global-btn" type="button" id="globalReadBtn"><span>本機讀經統計</span><span>查看 ›</span></button>
-    <p class="muted" style="margin:2px 0 12px">單機版無連網匯總：這裡顯示的是本機本次開啟的讀經與抄寫累計。</p>
+    <p class="muted" style="margin:2px 0 12px">單機版無連網匯總：這裡顯示的是本機保存的讀經與抄寫累計，關掉再開也還在。</p>
     <div class="list-head"><span class="ic" aria-hidden="true">📖</span><h2>經文</h2></div>
     <div class="sutra-rows" id="readList" style="margin-bottom:18px"></div>
     <div class="section-title"><h2 id="readerHeading">正在讀</h2><span>點上方經文切換</span></div>
@@ -592,7 +592,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
 
   <!-- ============ 統計 ============ -->
   <section class="panel" id="panel-stats" aria-label="統計">
-    <div class="section-title"><h2>統計</h2><span>本次開啟累計</span></div>
+    <div class="section-title"><h2>統計</h2><span>本機保存累計</span></div>
     <div class="record-grid">
       <div class="card"><b id="statTotalChars">0</b><span>抄寫總字數</span></div>
       <div class="card"><b id="statTotalDone">0</b><span>圓滿部數</span></div>
@@ -618,7 +618,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
     </div>
     <div class="card" style="margin-top:14px">
       <h3>統計說明</h3>
-      <p class="muted" style="margin:6px 0 0">本頁為單機版，沒有帳號與伺服器，無法取得全球即時數據；上面所有數字都是這台裝置、本次開啟的真實累計。關閉頁面後計數歸零，圓滿的作品請及時下載保存。</p>
+      <p class="muted" style="margin:6px 0 0">本頁為單機版，沒有帳號與伺服器，無法取得全球即時數據；上面所有數字都是這台裝置、本機保存的真實累計，關掉再開也還在，只有在「設置」裡清除記錄才會歸零。圓滿的作品仍可隨時下載保存。</p>
       <button class="btn ghost" type="button" id="statsGlobalBtn" style="margin-top:10px">查看本機匯總</button>
     </div>
   </section>
@@ -679,7 +679,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
             <div><b id="malaCount">0</b><span>本圈計數</span></div>
             <div><b id="malaRounds">0</b><span>已滿圈數</span></div>
           </div>
-          <p class="muted" style="margin-top:12px">一聲一念，念從心起。計數只在本次開啟中保留，關閉頁面即清零；想留存，可到「已完成」頁查看本次合計。</p>
+          <p class="muted" style="margin-top:12px">一聲一念，念從心起。計數保存在本機，關掉再開也還在；合計可到「已完成」頁查看。</p>
           <h3 style="margin-top:18px">目標</h3>
           <div class="chips" id="malaGoal" style="margin-top:8px">
             <button class="chip" type="button" data-goal="108" aria-pressed="true">一圈 108</button>
@@ -753,7 +753,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
           <button class="chip" type="button" data-cgoal="10000" aria-pressed="false">10000</button>
         </div>
         <div class="action-row" style="max-width:380px;margin:14px auto 0"><button class="btn ghost" type="button" id="counterAddToTotal">把計數併入今日念佛總數</button></div>
-        <p class="muted" style="margin-top:10px">計數只在本次開啟中保留；「併入總數」後會加到首頁與統計的念佛計數裡。</p>
+        <p class="muted" style="margin-top:10px">計數保存在本機，關掉再開也還在；「併入總數」後會加到首頁與統計的念佛計數裡。</p>
       </div>
     </div>
 
@@ -781,7 +781,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
 
   <!-- ============ 已完成 ============ -->
   <section class="panel" id="panel-done" aria-label="已完成">
-    <div class="section-title"><h2>已完成</h2><span>僅保留於本次開啟</span></div>
+    <div class="section-title"><h2>已完成</h2><span>本機保存 · 關掉再開也還在</span></div>
     <div class="record-grid">
       <div class="card"><b id="recChars">0</b><span>今日抄字</span></div>
       <div class="card"><b id="recDone">0</b><span>圓滿部數</span></div>
@@ -792,7 +792,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
     <div class="section-title"><h2>★ 我的收藏</h2><span id="favCountLabel"></span></div>
     <div class="card" id="favList"><div class="empty">還沒有收藏。回到首頁或讀經頁，點經文旁的星號即可收藏。</div></div>
 
-    <div class="section-title"><h2>本次抄寫記錄</h2><span id="recCountLabel"></span></div>
+    <div class="section-title"><h2>抄寫記錄</h2><span id="recCountLabel"></span></div>
     <div class="card" id="recordList"><div class="empty">還沒有完成的抄經。寫滿一部經，這裡會出現記錄，並可下載作品圖。</div></div>
 
     <div class="card" style="margin-top:14px">
@@ -804,7 +804,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
 
   <!-- ============ 設置 ============ -->
   <section class="panel" id="panel-settings" aria-label="設置">
-    <div class="section-title"><h2>設置</h2><span>僅作用於本次開啟</span></div>
+    <div class="section-title"><h2>設置</h2><span>保存在本機</span></div>
     <div class="card">
       <h3>抄寫偏好</h3>
       <div class="settings-grid" style="margin-top:10px">
@@ -829,13 +829,13 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
     </div>
     <div class="card" style="margin-top:14px">
       <h3>功課摘要</h3>
-      <p class="muted" style="margin:6px 0 0">把本次開啟的抄寫、念佛、靜坐合計下載為文字，方便自己留存。</p>
+      <p class="muted" style="margin:6px 0 0">把本機保存的抄寫、念佛、靜坐合計下載為文字，方便自己留存。</p>
       <div class="action-row"><button class="btn" type="button" id="exportSummaryBtn">下載功課摘要</button></div>
     </div>
     <div class="card" style="margin-top:14px">
-      <h3>清除本次記錄</h3>
-      <p class="muted" style="margin:6px 0 0">清除後，本次開啟的抄寫進度、念佛計數、靜坐與完成記錄全部歸零，無法恢復。</p>
-      <div class="action-row"><button class="btn ghost" type="button" id="clearSessionBtn">清除本次記錄</button></div>
+      <h3>清除已保存的記錄</h3>
+      <p class="muted" style="margin:6px 0 0">清除後，本機保存的抄寫進度、念佛計數、靜坐與完成記錄全部歸零，無法恢復。收藏與抄寫偏好不受影響。</p>
+      <div class="action-row"><button class="btn ghost" type="button" id="clearSessionBtn">清除已保存的記錄</button></div>
     </div>
     <div class="card" style="margin-top:14px">
       <h3>分享給朋友</h3>
@@ -876,7 +876,7 @@ html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
   <div class="sheet">
     <div class="seal">統計</div>
     <h2 id="globalTitle">本機統計匯總</h2>
-    <p>本頁為單機版，沒有帳號與伺服器，無法取得全球即時數據；以下為這台裝置、本次開啟的真實累計。</p>
+    <p>本頁為單機版，沒有帳號與伺服器，無法取得全球即時數據；以下為這台裝置、本機保存的真實累計，關掉再開也還在。</p>
     <div class="sheet-list" id="globalList"></div>
     <div class="row"><button class="btn" type="button" id="closeGlobalBtn">知道了</button></div>
   </div>
@@ -967,12 +967,95 @@ SUTRAS.forEach(function(s){s.chars=charsOf(s.text);});
 var REPEATS=1;
 function currentChars(s){ if(s.baseRepeat){ var out=[]; for(var i=0;i<REPEATS;i++) out=out.concat(s.chars); return out; } return s.chars; }
 
-/* ---------- 狀態（僅本次開啟，存於記憶體） ---------- */
+/* ---------- 狀態（本機持久保存，localStorage，僅存本機） ---------- */
 var state={sutra:SUTRAS[0],idx:0,mode:"write",done:{},typed:{},strokes:{},started:false,elapsed:0,timerOn:false,timerId:null,ink:"#1f2b28",brush:7,fade:26,grid:"tian",font:"serif",paper:"xuan"};
 var session={chars:0,completed:[],chants:0,sitMinutes:0,lastWork:null};
 var mala={count:0,rounds:0,goal:108,chant:"南無阿彌陀佛",total:0};
 var sit={mins:10,left:600,running:false,id:null,phase:"idle",phaseId:null,done:0};
 var favs={}, progressStore={}, homeFilter="all", dailyGoal=260;
+
+/* ---------- 本機持久保存：關掉再開也還在（localStorage，只存這台裝置） ---------- */
+var STORE_KEY="tianyichaojing.v1";
+var readerDir="h";
+var persistTimer=null;
+function trySave(obj){try{localStorage.setItem(STORE_KEY,JSON.stringify(obj));return true;}catch(e){return false;}}
+function collectStoredData(slim){
+  var data={version:1,savedAt:new Date().toISOString(),currentSutraId:state.sutra?state.sutra.id:null,
+    progress:progressStore,favs:favs,
+    totals:{chars:session.chars,chants:session.chants,sitMinutes:session.sitMinutes},
+    completed:session.completed,
+    mala:{count:mala.count,rounds:mala.rounds,total:mala.total,goal:mala.goal,chant:mala.chant},
+    dailyGoal:dailyGoal,sign:signDrawn,
+    prefs:{paper:state.paper,grid:state.grid,font:state.font,ink:state.ink,brush:state.brush,fade:state.fade,mode:state.mode,autoNext:!!$("autoNext").checked,repeats:REPEATS,theme:document.documentElement.getAttribute("data-theme"),sound:!!$("soundToggle").checked,readerSize:parseInt($("fontSize").value,10)||20,lineGap:parseFloat($("lineGap").value)||2.15,dir:readerDir}};
+  if(typeof fish!=="undefined"&&fish)data.fishCount=fish.count;
+  if(typeof counter!=="undefined"&&counter)data.counter={value:counter.value,goal:counter.goal,name:$("counterName").value};
+  if(typeof sit!=="undefined"&&sit)data.sitDone=sit.done;
+  if(slim){
+    var slimProgress={};
+    Object.keys(data.progress).forEach(function(k){var p=data.progress[k];slimProgress[k]={idx:p.idx,done:p.done,typed:p.typed,strokes:{},elapsed:p.elapsed,started:p.started};});
+    data.progress=slimProgress;
+    data.completed=data.completed.map(function(r){var c={};Object.keys(r).forEach(function(k){if(k!=="strokes")c[k]=r[k];});c.strokes={};return c;});
+  }
+  return data;
+}
+function persistNow(){
+  try{
+    saveProgress();
+    if(!trySave(collectStoredData(false))){
+      /* 空間不足時退一步：丟掉手寫筆畫（已寫的字與鍵入字仍保留），再存一次 */
+      if(!trySave(collectStoredData(true))){
+        var minimal=collectStoredData(true);
+        trySave({version:1,savedAt:minimal.savedAt,currentSutraId:minimal.currentSutraId,favs:minimal.favs,totals:minimal.totals,prefs:minimal.prefs});
+      }
+    }
+  }catch(e){}
+}
+function persist(){if(persistTimer)clearTimeout(persistTimer);persistTimer=setTimeout(persistNow,200);}
+function restorePersisted(){
+  var data=null;
+  try{var raw=localStorage.getItem(STORE_KEY);if(raw)data=JSON.parse(raw);}catch(e){data=null;}
+  if(!data||typeof data!=="object")return null;
+  if(data.progress&&typeof data.progress==="object")progressStore=data.progress;
+  if(data.favs&&typeof data.favs==="object")favs=data.favs;
+  if(data.totals){session.chars=data.totals.chars||0;session.chants=data.totals.chants||0;session.sitMinutes=data.totals.sitMinutes||0;}
+  if(Array.isArray(data.completed)){
+    session.completed=data.completed.map(function(r){var c={};Object.keys(r).forEach(function(k){c[k]=r[k];});c.time=r.time?new Date(r.time):new Date();c.done=c.done||{};c.typed=c.typed||{};c.strokes=c.strokes||{};return c;});
+    session.lastWork=session.completed.length?session.completed[session.completed.length-1]:null;
+  }
+  if(data.mala){mala.count=data.mala.count||0;mala.rounds=data.mala.rounds||0;mala.total=data.mala.total||0;if(data.mala.goal)mala.goal=data.mala.goal;if(data.mala.chant)mala.chant=data.mala.chant;if(!data.totals)session.chants=mala.total;}
+  if(typeof data.dailyGoal==="number")dailyGoal=data.dailyGoal;
+  if(data.sign&&data.sign.date)signDrawn=data.sign;
+  if(typeof data.fishCount==="number"&&typeof fish!=="undefined"&&fish)fish.count=data.fishCount;
+  if(data.counter&&typeof counter!=="undefined"&&counter){counter.value=data.counter.value||0;counter.goal=data.counter.goal||108;}
+  if(typeof data.sitDone==="number"&&typeof sit!=="undefined"&&sit)sit.done=data.sitDone;
+  if(data.currentSutraId){
+    var found=null;SUTRAS.forEach(function(s){if(s.id===data.currentSutraId)found=s;});
+    if(found){state.sutra=found;loadProgress(found.id);}
+  }
+  return data;
+}
+function applyStoredPrefs(data){
+  if(!data||!data.prefs)return;var p=data.prefs;
+  if(p.theme){document.documentElement.setAttribute("data-theme",p.theme);applyTheme();}
+  if(p.paper)setPaper(p.paper);
+  if(p.grid){state.grid=p.grid;$("gridStyle").value=p.grid;$("setGrid").value=p.grid;}
+  if(p.font){state.font=p.font;$("modelFont").value=p.font;$("setFont").value=p.font;}
+  if(p.ink){state.ink=p.ink;document.querySelectorAll(".swatch").forEach(function(sw){sw.setAttribute("aria-pressed",sw.getAttribute("data-ink")===p.ink?"true":"false");});}
+  if(p.brush){state.brush=p.brush;$("brushSize").value=p.brush;$("brushSizeVal").textContent=p.brush;}
+  if(p.fade){state.fade=p.fade;$("fadeRange").value=p.fade;}
+  if(typeof p.autoNext==="boolean")$("autoNext").checked=p.autoNext;
+  if(p.repeats){REPEATS=p.repeats;$("setRepeats").value=String(p.repeats);}
+  if(typeof p.sound==="boolean"){$("soundToggle").checked=p.sound;$("soundToggle2").checked=p.sound;}
+  if(p.readerSize){$("fontSize").value=p.readerSize;$("fontSizeVal").textContent=p.readerSize;$("setReaderSize").value=p.readerSize;$("setReaderSizeVal").textContent=p.readerSize;$("readerText").style.fontSize=p.readerSize+"px";}
+  if(p.lineGap){$("lineGap").value=p.lineGap;$("readerText").style.lineHeight=p.lineGap;}
+  if(p.dir)setDir(p.dir);
+  if(data.counter&&data.counter.name)$("counterName").value=data.counter.name;
+  if(typeof data.sitDone==="number")$("sitDoneLabel").textContent=data.sitDone+" 分鐘";
+  if(typeof data.fishCount==="number"){$("fishCount").textContent=data.fishCount;$("fishCountLabel").textContent=data.fishCount;}
+  document.querySelectorAll("#chantPicker .chip").forEach(function(c){c.setAttribute("aria-pressed",c.getAttribute("data-chant")===mala.chant?"true":"false");});
+  document.querySelectorAll("#malaGoal .chip").forEach(function(c){c.setAttribute("aria-pressed",parseInt(c.getAttribute("data-goal"),10)===mala.goal?"true":"false");});
+  document.querySelectorAll("[data-cgoal]").forEach(function(c){c.setAttribute("aria-pressed",parseInt(c.getAttribute("data-cgoal"),10)===counter.goal?"true":"false");});
+}
 function doneCountFor(id){
   if(state.sutra&&state.sutra.id===id)return Object.keys(state.done).length;
   var p=progressStore[id];return p?Object.keys(p.done).length:0;
@@ -998,7 +1081,7 @@ function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");c
 function applyTheme(){var dark=document.documentElement.getAttribute("data-theme")==="dark";$("themeBtn").setAttribute("aria-pressed",dark?"true":"false");$("themeBtn").textContent=dark?"淺色模式":"深夜模式";}
 if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");}
 applyTheme();
-$("themeBtn").addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme");document.documentElement.setAttribute("data-theme",cur==="dark"?"light":"dark");applyTheme();});
+$("themeBtn").addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme");document.documentElement.setAttribute("data-theme",cur==="dark"?"light":"dark");applyTheme();persist();});
 
 /* ---------- 頁籤 ---------- */
 function setHomeSeg(which){
@@ -1068,6 +1151,7 @@ function renderReadList(){
 function toggleFav(id){
   if(favs[id]){delete favs[id];toast("已取消收藏。");}
   else{favs[id]=true;toast("已收藏，可到「已完成」頁查看。");}
+  persist();
   renderHomeList();renderReadList();renderFavs();
 }
 function renderFavs(){
@@ -1285,15 +1369,15 @@ $("restartBtn").addEventListener("click",function(){
   $("elapsedLabel").textContent="00:00";$("pauseTimerBtn").textContent="暫停計時";updateHeroTime();
   buildCharGrid();setCurrentChar();toast("已重新開始，靜心再寫。");
 });
-$("brushSize").addEventListener("input",function(){state.brush=parseInt(this.value,10);$("brushSizeVal").textContent=this.value;drawAll();});
-$("fadeRange").addEventListener("input",function(){state.fade=parseInt(this.value,10);drawAll();});
+$("brushSize").addEventListener("input",function(){state.brush=parseInt(this.value,10);$("brushSizeVal").textContent=this.value;drawAll();persist();});
+$("fadeRange").addEventListener("input",function(){state.fade=parseInt(this.value,10);drawAll();persist();});
 document.querySelectorAll(".swatch").forEach(function(sw){sw.addEventListener("click",function(){
   document.querySelectorAll(".swatch").forEach(function(x){x.setAttribute("aria-pressed","false");});
-  sw.setAttribute("aria-pressed","true");state.ink=sw.getAttribute("data-ink");drawAll();
+  sw.setAttribute("aria-pressed","true");state.ink=sw.getAttribute("data-ink");drawAll();persist();
 });});
-$("gridStyle").addEventListener("change",function(){state.grid=this.value;$("setGrid").value=this.value;drawAll();});
-$("modelFont").addEventListener("change",function(){state.font=this.value;$("setFont").value=this.value;drawAll();});
-$("autoNext").addEventListener("change",function(){/* 僅開關，鍵入時即用 */});
+$("gridStyle").addEventListener("change",function(){state.grid=this.value;$("setGrid").value=this.value;drawAll();persist();});
+$("modelFont").addEventListener("change",function(){state.font=this.value;$("setFont").value=this.value;drawAll();persist();});
+$("autoNext").addEventListener("change",function(){persist();});
 
 function setMode(m){
   state.mode=m;
@@ -1304,6 +1388,7 @@ function setMode(m){
   $("brushRow").style.display=m==="write"?"flex":"none";
   if(m==="type"){saveCurrent();setCurrentChar();$("typeInput").focus();}
   else{drawAll();}
+  persist();
 }
 $("modeWrite").addEventListener("click",function(){setMode("write");});
 $("modeType").addEventListener("click",function(){setMode("type");});
@@ -1330,15 +1415,17 @@ $("typeInput").addEventListener("input",function(){
 function setPaper(p){
   state.paper=p;$("paperStage").setAttribute("data-paper",p);$("setPaper").value=p;
   document.querySelectorAll("[data-paperbtn]").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-paperbtn")===p?"true":"false");});
+  persist();
 }
 document.querySelectorAll("[data-paperbtn]").forEach(function(b){b.addEventListener("click",function(){setPaper(b.getAttribute("data-paperbtn"));});});
 $("setPaper").addEventListener("change",function(){setPaper(this.value);});
-$("setGrid").addEventListener("change",function(){state.grid=this.value;$("gridStyle").value=this.value;drawAll();});
-$("setFont").addEventListener("change",function(){state.font=this.value;$("modelFont").value=this.value;drawAll();});
+$("setGrid").addEventListener("change",function(){state.grid=this.value;$("gridStyle").value=this.value;drawAll();persist();});
+$("setFont").addEventListener("change",function(){state.font=this.value;$("modelFont").value=this.value;drawAll();persist();});
 $("setRepeats").addEventListener("change",function(){
   REPEATS=parseInt(this.value,10);
   if(state.sutra.baseRepeat){selectSutra("fohao");}
   toast("佛號遍數已設為 "+REPEATS+" 遍。");
+  persist();
 });
 $("hideVerse").addEventListener("click",function(){$("openingVerse").style.display="none";resizeCanvas();});
 
@@ -1361,6 +1448,7 @@ function updateProgress(){
   var ds=$("dailySummary");if(ds)ds.textContent="抄字 "+session.chars+" · 念佛 "+mala.total+" 聲 · 靜坐 "+session.sitMinutes+" 分鐘 · 圓滿 "+session.completed.length+" 部";
   var gl=$("goalLabel");if(gl)gl.textContent="已抄 "+session.chars+" / "+dailyGoal+" 字";
   var gb=$("goalBar");if(gb)gb.style.width=Math.min(100,Math.round(session.chars/dailyGoal*100))+"%";
+  persist();
 }
 
 /* ---------- 完成與匯出 ---------- */
@@ -1465,9 +1553,10 @@ function renderReader(){
   updateReadProgress();
 }
 /* 讀經列表見 renderReadList（首頁經文列段落） */
-$("fontSize").addEventListener("input",function(){$("readerText").style.fontSize=this.value+"px";$("fontSizeVal").textContent=this.value;});
-$("lineGap").addEventListener("input",function(){$("readerText").style.lineHeight=this.value;});
+$("fontSize").addEventListener("input",function(){$("readerText").style.fontSize=this.value+"px";$("fontSizeVal").textContent=this.value;persist();});
+$("lineGap").addEventListener("input",function(){$("readerText").style.lineHeight=this.value;persist();});
 function setDir(v){
+  readerDir=v;persist();
   $("dirH").setAttribute("aria-pressed",v==="h"?"true":"false");
   $("dirV").setAttribute("aria-pressed",v==="v"?"true":"false");
   $("readerPaper").classList.toggle("vertical",v==="v");
@@ -1599,13 +1688,13 @@ var ARTICLES=[
   paras:["《心經》是般若思想最短的總綱。經文從觀自在菩薩「照見五蘊皆空」說起：色、受、想、行、識五蘊，看似實在，究其本性皆空；空也不是什麼都沒有，而是諸法不生不滅、不垢不淨、不增不減的本來面目。","「色不異空，空不異色，色即是空，空即是色」，說的是色與空不是兩回事：眼前的一切現象，當下即空；空性也不離開現象而存在。讀到這裡不必急著懂，先把句子抄下來、讀熟，意思會在反覆讀寫中慢慢清楚。","經文後半段從「無眼耳鼻舌身意」一路說到「無智亦無得」，最後以咒語「揭諦揭諦，波羅揭諦」收尾：度過去、度過去，到彼岸去。每天抄一遍《心經》，就是每天把這條路走一遍。"],
   cta:{label:"去抄《心經》",sutra:"xinjing",mode:"copy"}},
  {id:"chant-note",title:"持名念佛：一聲一念",intro:"南無阿彌陀佛，六個字，一聲就是一念。",
-  paras:["持名是最簡單的修行法門：不用背長篇經文，一句佛號反覆念，念出聲也好，默念也好，關鍵是念的時候心在佛號上，不在別處。","念珠就是幫手：撥一顆珠，念一聲佛號，滿一百零八顆為一圈。本頁的念珠、木魚、計數器都可以計數，點中央圓盤或敲木魚都算一聲，滿一圈會鳴磬提醒。","不必立很大的目標。先從每天一圈開始，念得下去，再慢慢加。念佛計數會記在首頁與統計裡，關閉頁面前看一眼，就是今天的功課。"],
+  paras:["持名是最簡單的修行法門：不用背長篇經文，一句佛號反覆念，念出聲也好，默念也好，關鍵是念的時候心在佛號上，不在別處。","念珠就是幫手：撥一顆珠，念一聲佛號，滿一百零八顆為一圈。本頁的念珠、木魚、計數器都可以計數，點中央圓盤或敲木魚都算一聲，滿一圈會鳴磬提醒。","不必立很大的目標。先從每天一圈開始，念得下去，再慢慢加。念佛計數會記在首頁與統計裡，保存在本機，關掉再開也還在。"],
   cta:{label:"去念佛號",sutra:"fohao",mode:"copy"}},
  {id:"read-vs-copy",title:"讀經與抄經，為什麼要分開做",intro:"讀是入門，抄是安住；讀得明白，抄得下去。",
   paras:["讀經是先把經文讀通：字號調大，橫排直排隨喜，從卷首讀到卷尾，知道這部經在說什麼。讀的時候可以快一點，不懂的句子先放著，讀完一遍再回頭。","抄經則是慢功夫：一個字一個字地寫，寫的時候眼睛看著字、手跟著走、心停在字上。讀經時滑過去的句子，抄的時候會一個一個浮現出來，這正是抄經的用處。","建議的次序是：先讀一遍，再抄一遍，抄完再讀一遍。讀寫相參，同一部經會有不同的體會。本頁首頁的「抄經」「讀經」兩個入口，就是為這個次序準備的。"],
   cta:{label:"去讀《金剛經》卷首",sutra:"jingang",mode:"read"}},
  {id:"dedication",title:"寫滿一部經之後：回向",intro:"功德不獨享，回向給一切眾生。",
-  paras:["寫滿一部經，頁面會出現迴向頁，上面是課誦裡常用的回向偈：「願以此功德，莊嚴佛淨土，上報四重恩，下濟三途苦。若有見聞者，悉發菩提心，盡此一報身，同生極樂國。」","回向的意思，是把抄經的功德分享出去：不只為自己，也為父母、師長、親友與一切眾生。念一遍回向偈，再下載作品圖，這一部經才算圓滿收尾。","如果中途停下，也不用可惜：進度會保留在本次開啟中，回到同一部經可以繼續寫。寫不完的經，下一回接著寫就是。"],
+  paras:["寫滿一部經，頁面會出現迴向頁，上面是課誦裡常用的回向偈：「願以此功德，莊嚴佛淨土，上報四重恩，下濟三途苦。若有見聞者，悉發菩提心，盡此一報身，同生極樂國。」","回向的意思，是把抄經的功德分享出去：不只為自己，也為父母、師長、親友與一切眾生。念一遍回向偈，再下載作品圖，這一部經才算圓滿收尾。","如果中途停下，也不用可惜：進度會保存在本機，關掉再開回到同一部經可以繼續寫。寫不完的經，下一回接著寫就是。"],
   cta:{label:"去抄《懺悔回向》",sutra:"chanhui",mode:"copy"}},
  {id:"lichu",title:"大乘離文字普光明藏經 · 導讀",intro:"經名很長，意思卻很直接：離開文字，才見光明藏。",
   paras:["《大乘離文字普光明藏經》的經名，點出了它的核心：文字是載道的工具，真正的光明藏不在文字裡；但若沒有文字接引，初學又無從入門。所以這部經一面用文字說法，一面提醒修行人不要執著文字。","這部經全文較長，本頁目前沒有收錄全文，只收這篇導讀。想深入閱讀，建議先從《心經》與《金剛經》卷首讀起，把「空」與「無住」的基礎打穩，再去讀長篇，比較容易相應。","讀長篇經有一個好方法：每天讀一品或一節，讀完合上書想一想，再抄下當天最有感觸的一句。積少成多，一部長經也會在不知不覺中讀完。"],
@@ -1726,6 +1815,7 @@ function startFishAuto(){
 $("fishAutoBtn").addEventListener("click",function(){if(fish.auto)stopFishAuto();else startFishAuto();});
 $("fishResetBtn").addEventListener("click",function(){
   stopFishAuto();fish.count=0;$("fishCount").textContent="0";$("fishCountLabel").textContent="0";
+  persist();
   toast("木魚顯示已歸零，念佛總數保留。");
 });
 
@@ -1735,6 +1825,7 @@ function renderCounter(){
   $("counterNum").textContent=counter.value;
   $("counterBar").style.width=Math.min(100,Math.round(counter.value/counter.goal*100))+"%";
   $("counterGoalLabel").textContent="目標 "+counter.goal+" · "+(counter.value>=counter.goal?"已達目標，隨喜。":"還差 "+(counter.goal-counter.value));
+  persist();
 }
 $("counterPlus1").addEventListener("click",function(){counter.value++;renderCounter();});
 $("counterPlus10").addEventListener("click",function(){counter.value+=10;renderCounter();});
@@ -1787,7 +1878,7 @@ function updateSignView(){
 $("drawSignBtn").addEventListener("click",function(){
   var key=todayKey(),h=0;for(var i=0;i<key.length;i++)h=(h*31+key.charCodeAt(i))>>>0;
   signDrawn={date:key,idx:h%SIGNS.length};
-  updateSignView();updatePracticeHome();
+  updateSignView();updatePracticeHome();persist();
   toast("今日之簽已抽出。");
 });
 
@@ -1797,20 +1888,20 @@ $("homeSegRead").addEventListener("click",function(){switchTab("read");});
 $("homeSegArticle").addEventListener("click",function(){switchTab("library");});
 $("readBackHome").addEventListener("click",function(){switchTab("home");});
 $("goSettingsBtn").addEventListener("click",function(){switchTab("settings");});
-$("soundToggle2").addEventListener("change",function(){$("soundToggle").checked=this.checked;});
-$("soundToggle").addEventListener("change",function(){$("soundToggle2").checked=this.checked;});
+$("soundToggle2").addEventListener("change",function(){$("soundToggle").checked=this.checked;persist();});
+$("soundToggle").addEventListener("change",function(){$("soundToggle2").checked=this.checked;persist();});
 $("setReaderSize").addEventListener("input",function(){
   $("fontSize").value=this.value;$("fontSizeVal").textContent=this.value;$("setReaderSizeVal").textContent=this.value;
-  $("readerText").style.fontSize=this.value+"px";
+  $("readerText").style.fontSize=this.value+"px";persist();
 });
-$("fontSize").addEventListener("input",function(){$("setReaderSize").value=this.value;$("setReaderSizeVal").textContent=this.value;});
+$("fontSize").addEventListener("input",function(){$("setReaderSize").value=this.value;$("setReaderSizeVal").textContent=this.value;persist();});
 $("themeBtn2").addEventListener("click",function(){$("themeBtn").click();});
 $("exportSummaryBtn").addEventListener("click",function(){
   var d=new Date();
   var lines=["天易抄經 · 功課摘要","日期："+d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日","",
     "總抄寫字數："+session.chars+" 字","圓滿部數："+session.completed.length+" 部","念佛計數："+mala.total+" 聲","靜坐合計："+session.sitMinutes+" 分鐘","收藏經文："+Object.keys(favs).length+" 部",""];
   session.completed.forEach(function(r){lines.push("圓滿："+r.title+" · "+r.chars+" 字 · 用時 "+fmtTime(r.seconds));});
-  lines.push("","（本摘要為本次開啟的累計，關閉頁面後歸零。）");
+  lines.push("","（本摘要為本機保存的累計。）");
   downloadBlob(new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"}),"功課摘要.txt");
   toast("功課摘要已下載。");
 });
@@ -1818,17 +1909,18 @@ var clearArm=false,clearTimer=null;
 $("clearSessionBtn").addEventListener("click",function(){
   if(!clearArm){
     clearArm=true;this.textContent="再點一次確認清除";
-    clearTimer=setTimeout(function(){clearArm=false;$("clearSessionBtn").textContent="清除本次記錄";},3000);
+    clearTimer=setTimeout(function(){clearArm=false;$("clearSessionBtn").textContent="清除已保存的記錄";},3000);
     return;
   }
-  clearTimeout(clearTimer);clearArm=false;this.textContent="清除本次記錄";
+  clearTimeout(clearTimer);clearArm=false;this.textContent="清除已保存的記錄";
   session.chars=0;session.completed=[];session.lastWork=null;session.chants=0;session.sitMinutes=0;
   progressStore={};mala.count=0;mala.rounds=0;mala.total=0;fish.count=0;counter.value=0;
   sit.done=0;session.sitMinutes=0;
   state.idx=0;state.done={};state.typed={};state.strokes={};state.started=false;state.elapsed=0;state.timerOn=false;stopTimer();
   $("fishCount").textContent="0";$("fishCountLabel").textContent="0";renderCounter();refreshMala();
   selectSutra(state.sutra.id);renderRecords();renderFavs();renderStats();updateProgress();
-  toast("本次記錄已清除，重新開始。");
+  persistNow();
+  toast("已保存的記錄已清除，重新開始。");
 });
 
 /* ---------- 內建分享海報：本機生成，不含連結與二維碼 ---------- */
@@ -1884,8 +1976,15 @@ $("copyShareBtn").addEventListener("click",function(){
   }else{toast("這台裝置不支援一鍵複製，請長按上方文字手動複製。");}
 });
 
-/* ---------- 初始化 ---------- */
+/* ---------- 初始化：先讀回本機保存的記錄，再渲染 ---------- */
+var storedState=restorePersisted();
+applyStoredPrefs(storedState);
 renderHomeList("all");renderReadList();renderArticles();renderFavs();renderStats();renderCounter();buildMala();renderSit();buildCharGrid();setCurrentChar();renderReader();renderRecords();updateProgress();
+if(storedState&&storedState.currentSutraId)selectSutra(storedState.currentSutraId);
+if(storedState&&storedState.prefs&&storedState.prefs.mode==="type")setMode("type");
+/* 關頁 / 切到後台時立即存一次，避免防抖中的改動丟失 */
+window.addEventListener("pagehide",function(){persistNow();});
+document.addEventListener("visibilitychange",function(){if(document.hidden)persistNow();});
 window.addEventListener("resize",function(){if($("panel-home").classList.contains("active"))resizeCanvas();});
 resizeCanvas();
 })();
