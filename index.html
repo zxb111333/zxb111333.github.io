@@ -1,0 +1,1894 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>天易抄經-佛經抄寫閱讀·修行小助手</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --pine:#1e4d44; --pine2:#2f6b5e; --pine3:#4c8f7c;
+  --ink:#1f2b28; --ink2:#5e726b; --line:#cbd8d2;
+  --paper:#edf3f0; --paper2:#dde8e3; --card:#fdfffe;
+  --jade:#7fb8a3; --jade2:#2f6b5e; --seal:#bf5a36;
+  --sage:#6f8f7f; --bg:#e4ede9; --navbg:#fdfffe;
+  --shadow:0 10px 30px rgba(30,77,68,.12);
+  --radius:18px;
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --pine:#93c9b6; --pine2:#7fb8a3; --pine3:#6aa58f;
+  --ink:#e8f0ec; --ink2:#a7bcb3; --line:#33473f;
+  --paper:#1a2a26; --paper2:#22352f; --card:#1c2e29;
+  --jade:#7fb8a3; --jade2:#93c9b6; --seal:#e08a68;
+  --sage:#8fb5a3; --bg:#101c18; --navbg:#182822;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer;color:inherit}
+input,select{font:inherit}
+h1,h2,h3{line-height:1.3;margin:0}
+.serif{font-family:"Noto Serif TC",serif}
+
+/* ---------- shell ---------- */
+.shell{max-width:1120px;margin:0 auto;padding:0 16px 28px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 2px 10px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.mark{width:46px;height:46px;flex:0 0 auto;border-radius:14px;background:linear-gradient(160deg,#2f6b5e,#16382f);display:grid;place-items:center;box-shadow:var(--shadow)}
+.mark svg{width:30px;height:30px}
+.brand b{font-size:19px;letter-spacing:.06em;display:block;line-height:1.2}
+.brand small{color:var(--ink2);font-size:12px;letter-spacing:.14em}
+.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.pillbtn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:500}
+.pillbtn[aria-pressed="true"]{background:var(--pine);color:#fff;border-color:var(--pine)}
+html[data-theme="dark"] .pillbtn[aria-pressed="true"]{color:#12201c}
+.datechip{font-size:13px;color:var(--ink2);white-space:nowrap}
+
+.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:14px;margin:4px 0 16px}
+.hero-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero-card::after{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;border:1px solid var(--jade);border-radius:50%;opacity:.35;pointer-events:none}
+.kicker{font-size:12px;letter-spacing:.22em;color:var(--pine2);font-weight:700}
+.hero-card h1{font-size:23px;margin:6px 0 4px;letter-spacing:.03em}
+.hero-card p{margin:0;color:var(--ink2);font-size:14px}
+.progress-row{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.ring{width:64px;height:64px;flex:0 0 auto}
+.ring .num{font-size:15px;font-weight:900;fill:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:999px;padding:11px 20px;font-weight:700;font-size:15px;background:var(--pine);color:#fff}
+html[data-theme="dark"] .btn{color:#12201c}
+.btn.ghost{background:transparent;color:var(--pine);border:1.5px solid var(--pine)}
+.btn.small{padding:8px 14px;font-size:13.5px}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45;cursor:default}
+.stat-card{background:var(--pine);color:#eef6f2;border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center}
+html[data-theme="dark"] .stat-card{color:#12201c;background:linear-gradient(160deg,#93c9b6,#6aa58f)}
+.stat-card .n{font-size:34px;font-weight:900;line-height:1.05}
+.stat-card .lbl{font-size:13px;opacity:.85;letter-spacing:.08em;margin-top:4px}
+.stat-card .sub{font-size:12.5px;opacity:.8;margin-top:8px}
+
+/* ---------- panels / tabs ---------- */
+.panel{display:none}
+.panel.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.panel.active{animation:none}html{scroll-behavior:auto}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.card h2{font-size:18px;letter-spacing:.04em}
+.card h3{font-size:15px}
+.muted{color:var(--ink2);font-size:13.5px}
+.section-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:22px 0 10px}
+.section-title h2{font-size:17px}
+.section-title span{font-size:13px;color:var(--ink2)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--pine);color:#fff;border-color:var(--pine)}
+html[data-theme="dark"] .chip[aria-pressed="true"]{color:#12201c}
+.chip small{opacity:.75;font-weight:400;margin-left:4px}
+
+/* ---------- workspace ---------- */
+.work-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+.context{border-left:3px solid var(--jade);padding:8px 12px;background:var(--paper);border-radius:0 12px 12px 0;margin-bottom:12px}
+.context .lbl{font-size:12px;letter-spacing:.18em;color:var(--ink2)}
+.context .sent{font-family:"Noto Serif TC",serif;font-size:19px;letter-spacing:.12em;line-height:1.9}
+.context .sent .cur{color:var(--seal);font-weight:900;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.mode-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.work-grid>*{min-width:0}
+.seg{display:inline-flex;flex-wrap:wrap;max-width:100%;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:7px 13px;font-size:13.5px;font-weight:700;white-space:nowrap;flex:1 1 auto}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.12);color:var(--pine)}
+.paper-stage{border-radius:16px;padding:16px;display:grid;place-items:center;position:relative;border:1px solid var(--line)}
+.paper-stage[data-paper="xuan"]{background:#f0f5f2;background-image:radial-gradient(rgba(47,107,94,.08) 1px,transparent 1px);background-size:9px 9px}
+.paper-stage[data-paper="mi"]{background:#dce8e1}
+.paper-stage[data-paper="bai"]{background:#fcfdfc}
+.paper-stage[data-paper="ye"]{background:#14201d}
+.grid-wrap{position:relative;width:min(100%,430px);aspect-ratio:1/1}
+#writeCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;border-radius:6px;cursor:crosshair}
+.type-stage{width:min(100%,430px);aspect-ratio:1/1;display:none;place-items:center;border:2px dashed var(--line);border-radius:6px;background:rgba(255,255,255,.25)}
+html[data-theme="dark"] .type-stage{background:rgba(255,255,255,.04)}
+.type-stage .bigchar{font-family:"Noto Serif TC",serif;font-size:clamp(120px,32vw,220px);line-height:1;color:var(--ink);opacity:.92}
+.type-stage .hint{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:13px;color:var(--ink2)}
+.paper-stage.typing #writeCanvas{display:none}
+.paper-stage.typing .type-stage{display:grid}
+.stage-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;font-size:13px;color:var(--ink2);flex-wrap:wrap}
+.stage-foot b{color:var(--ink);font-size:15px}
+.brush-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.brush-row label{font-size:13px;color:var(--ink2)}
+.brush-row input[type="range"]{accent-color:var(--pine);width:130px}
+.swatch{width:30px;height:30px;border-radius:50%;border:2px solid var(--card);box-shadow:0 0 0 1px var(--line);padding:0}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 2px var(--pine)}
+.type-input-row{display:flex;gap:8px;margin-top:12px}
+.type-input-row input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:18px;background:var(--card);color:var(--ink);text-align:center;letter-spacing:.4em;font-family:"Noto Serif TC",serif}
+.action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.action-row .btn{flex:1;min-width:120px}
+.char-panel{max-height:520px;overflow-y:auto;overflow-x:hidden}
+.char-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px;width:100%;min-width:0}
+.char-cell{aspect-ratio:1;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--paper);display:grid;place-items:center;font-family:"Noto Serif TC",serif;font-size:16px;position:relative;padding:0;overflow:hidden}
+.char-cell.done{background:#dbe8e2;color:var(--pine);font-weight:700}
+html[data-theme="dark"] .char-cell.done{background:#24382f}
+.char-cell.current{border:2px solid var(--seal);color:var(--seal);font-weight:900}
+.char-cell .dot{position:absolute;right:4px;bottom:4px;width:6px;height:6px;border-radius:50%;background:var(--sage)}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;text-align:center}
+.mini-stats div{background:var(--paper);border-radius:12px;padding:10px 4px}
+.mini-stats b{display:block;font-size:19px}
+.mini-stats span{font-size:12px;color:var(--ink2)}
+
+/* ---------- library ---------- */
+.lib-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lib-item{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);display:block;width:100%}
+.lib-item:hover{border-color:var(--jade)}
+.lib-item.active{border:2px solid var(--pine)}
+.lib-item .tag{font-size:11.5px;letter-spacing:.16em;color:var(--pine2);font-weight:700}
+.lib-item h3{font-family:"Noto Serif TC",serif;font-size:20px;margin:6px 0 4px;letter-spacing:.04em}
+.lib-item p{margin:0;color:var(--ink2);font-size:13.5px}
+.lib-meta{display:flex;gap:14px;margin-top:12px;font-size:13px;color:var(--ink2);flex-wrap:wrap}
+.lib-meta b{color:var(--ink)}
+.lib-item .go{margin-top:12px;font-size:14px;font-weight:700;color:var(--pine)}
+
+/* ---------- reader ---------- */
+.reader-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.reader-tools label{font-size:13px;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.reader-tools input[type="range"]{accent-color:var(--pine)}
+.reader-paper{border-radius:var(--radius);border:1px solid var(--line);padding:26px 22px;box-shadow:var(--shadow);background:#f2f6f3;color:#1f2b28}
+html[data-theme="dark"] .reader-paper{background:#1a2a26;color:#e8f0ec}
+.reader-paper.vertical .reader-text{writing-mode:vertical-rl;text-orientation:upright;max-height:520px;overflow-x:auto;margin:0 auto}
+.reader-title{text-align:center;margin-bottom:6px}
+.reader-title h2{font-family:"Noto Serif TC",serif;font-size:26px;letter-spacing:.14em}
+.reader-title p{margin:4px 0 0;font-size:13px;color:#7a8a82;letter-spacing:.1em}
+html[data-theme="dark"] .reader-title p{color:#a7bcb3}
+.reader-text{font-family:"Noto Serif TC",serif;line-height:2.15;letter-spacing:.06em;text-align:justify;margin-top:18px}
+.reader-text p{margin:0 0 1em}
+.reader-foot{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font-size:13px;color:var(--ink2);flex-wrap:wrap}
+
+/* ---------- mala / meditation ---------- */
+.mala-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:14px;align-items:start}
+.mala-stage{position:relative;width:min(100%,400px);aspect-ratio:1;margin:6px auto 0}
+.bead{position:absolute;left:50%;top:50%;width:15px;height:15px;margin:-7.5px;border-radius:50%;border:1px solid var(--line);background:var(--card);padding:0;transform:var(--pos)}
+.bead.done{background:var(--jade);border-color:var(--jade2)}
+.bead.guru{width:20px;height:20px;margin:-10px;background:var(--seal);border-color:var(--seal)}
+.mala-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56%;aspect-ratio:1;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:var(--shadow);text-align:center;padding:10px}
+.mala-center .count{font-size:44px;font-weight:900;line-height:1}
+.mala-center .name{font-family:"Noto Serif TC",serif;font-size:14px;letter-spacing:.08em;color:var(--pine2)}
+.mala-center small{font-size:12px;color:var(--ink2)}
+.fish-btn{width:100%;margin-top:12px}
+.breath{width:150px;height:150px;border-radius:50%;margin:10px auto;background:radial-gradient(circle at 35% 30%,#cfe6db,#7fb8a3 62%,#2f6b5e);display:grid;place-items:center;color:#1f2b28;font-weight:900;letter-spacing:.2em;transition:transform 4s ease-in-out;box-shadow:var(--shadow)}
+.breath.in{transform:scale(1.14)}
+.breath.out{transform:scale(.86)}
+.timer-num{font-size:40px;font-weight:900;text-align:center;letter-spacing:.04em}
+.dur-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+
+/* ---------- records ---------- */
+.record-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.record-grid .card{padding:16px;text-align:center}
+.record-grid b{font-size:26px;display:block}
+.record-grid span{font-size:12.5px;color:var(--ink2)}
+.record-item{display:flex;gap:12px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:14px 2px;flex-wrap:wrap}
+.record-item:first-of-type{border-top:0}
+.record-item h3{font-size:15px}
+.record-item p{margin:2px 0 0;font-size:13px;color:var(--ink2)}
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.settings-grid label{font-size:13px;color:var(--ink2);display:block;margin-bottom:6px}
+.settings-grid select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;background:var(--card);color:var(--ink)}
+
+/* ---------- bottom nav ---------- */
+.bottomnav{position:static;z-index:40;background:var(--navbg);border:1px solid var(--line);border-radius:999px;margin:0 auto 18px;max-width:640px;padding:6px 8px;box-shadow:var(--shadow);display:flex;justify-content:center}
+.bottomnav nav{display:flex;gap:2px;width:100%;max-width:640px}
+.navbtn{flex:1;border:0;background:transparent;padding:8px 2px 6px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;color:var(--ink2)}
+.navbtn svg{width:22px;height:22px}
+.navbtn[aria-pressed="true"]{color:var(--pine);font-weight:700;background:var(--paper)}
+.navbtn .badge{min-width:18px;height:18px;border-radius:999px;background:var(--seal);color:#fff;font-size:11px;display:grid;place-items:center;padding:0 5px}
+
+/* ---------- modal / toast ---------- */
+.overlay{position:fixed;inset:0;background:rgba(16,28,24,.55);display:none;place-items:end center;z-index:60;padding:16px}
+.overlay.open{display:grid}
+.sheet{background:var(--card);border-radius:22px 22px 16px 16px;width:100%;max-width:520px;max-height:86vh;overflow:auto;padding:24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.sheet .seal{width:58px;height:58px;border-radius:12px;background:var(--seal);color:#fff;display:grid;place-items:center;font-family:"Noto Serif TC",serif;font-weight:900;font-size:22px;margin:0 auto 12px;transform:rotate(-4deg)}
+.sheet h2{font-family:"Noto Serif TC",serif;font-size:24px;letter-spacing:.1em}
+.sheet p{color:var(--ink2);font-size:14.5px}
+.sheet .dedication{font-family:"Noto Serif TC",serif;font-size:16.5px;line-height:2;background:var(--paper);border-radius:14px;padding:16px;margin:16px 0;text-align:center}
+.sheet .row{display:flex;gap:8px;flex-wrap:wrap}
+.sheet .row .btn{flex:1;min-width:130px}
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(10px);background:var(--ink);color:var(--paper);padding:11px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.opening-verse{font-family:"Noto Serif TC",serif;text-align:center;line-height:2.1;font-size:16px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.opening-verse small{display:block;font-size:12px;letter-spacing:.2em;color:var(--ink2);font-family:"Noto Sans TC",sans-serif}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--ink2)}
+footer.foot{margin:26px 0 8px;text-align:center;font-size:12.5px;color:var(--ink2);line-height:1.9}
+
+.navbtn .badge[hidden]{display:none}
+
+/* ---------- 首頁：分段、推薦、經文列 ---------- */
+.home-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:4px;margin-bottom:14px}
+.home-seg button{border:0;background:transparent;border-radius:12px;padding:11px 6px;font-size:15px;font-weight:700;color:var(--ink2);display:flex;align-items:center;justify-content:center;gap:7px}
+.home-seg button svg{width:19px;height:19px}
+.home-seg button[aria-pressed="true"]{background:var(--pine);color:#fff;box-shadow:var(--shadow)}
+html[data-theme="dark"] .home-seg button[aria-pressed="true"]{color:#12201c}
+.rec-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px}
+.rec-card h2{font-size:17px}
+.rec-card .sub{color:var(--ink2);font-size:13.5px;margin:3px 0 12px}
+.rec-row{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:13px 14px;margin-top:8px}
+.rec-row b{font-family:"Noto Serif TC",serif;font-size:17px;letter-spacing:.04em}
+.rec-row span{font-size:13px;color:var(--ink2);white-space:nowrap}
+.total-strip{display:flex;align-items:center;justify-content:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px;text-align:center}
+.total-strip .n{font-size:30px;font-weight:900}
+.total-strip .lbl{font-size:14px;color:var(--ink2)}
+.global-btn{width:100%;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:16px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-bottom:6px}
+.global-btn span:last-child{color:var(--ink2);font-weight:400}
+.sutra-rows{display:grid;gap:10px}
+.sutra-row{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 14px;box-shadow:var(--shadow);text-align:left;width:100%}
+.sutra-row.active{border:2px solid var(--pine)}
+.sutra-row .main{flex:1;min-width:0}
+.sutra-row h3{font-family:"Noto Serif TC",serif;font-size:18px;letter-spacing:.03em}
+.sutra-row p{margin:3px 0 0;font-size:13px;color:var(--ink2)}
+.star{border:0;background:transparent;font-size:22px;line-height:1;padding:6px;color:var(--ink2);flex:0 0 auto}
+.star.fav{color:var(--seal)}
+.row-read{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;color:var(--pine);white-space:nowrap}
+.backbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.backbar h2{font-size:17px;flex:1}
+.list-head{display:flex;align-items:center;gap:10px;margin:20px 0 10px}
+.list-head .ic{width:38px;height:38px;border-radius:11px;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;flex:0 0 auto}
+.list-head h2{font-size:16px}
+.list-head::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ---------- 統計 ---------- */
+.stat-bars{display:grid;gap:10px;margin-top:10px}
+.stat-bar-row{font-size:14px}
+.stat-bar-row .top{display:flex;justify-content:space-between;gap:10px;margin-bottom:5px}
+.bar{height:9px;border-radius:99px;background:var(--paper);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--pine2);border-radius:99px}
+.goal-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+
+/* ---------- 修持工具 ---------- */
+.tool-list{display:grid;gap:10px}
+.tool-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.tool-card .tic{width:52px;height:52px;border-radius:14px;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;flex:0 0 auto}
+.tool-card h3{font-size:16.5px}
+.tool-card p{margin:3px 0 0;font-size:13.5px;color:var(--ink2)}
+.tool-card .chev{margin-left:auto;font-size:22px;color:var(--ink2)}
+.fish-big{width:min(100%,300px);aspect-ratio:1.35;margin:8px auto;border-radius:46% 46% 42% 42%;background:radial-gradient(circle at 38% 30%,#8a5a34,#5a3319 68%,#3c2110);border:0;color:#f3e2c8;display:grid;place-items:center;box-shadow:var(--shadow);position:relative}
+.fish-big:active{transform:scale(.97)}
+.fish-big .eye{position:absolute;left:24%;top:26%;width:26px;height:26px;border-radius:50%;background:#f3e2c8;display:grid;place-items:center}
+.fish-big .eye::after{content:"";width:12px;height:12px;border-radius:50%;background:#2b1a0c}
+.fish-big .mouth{position:absolute;right:16%;top:58%;width:34px;height:18px;border:3px solid #f3e2c8;border-top:0;border-left:0;border-right:0;border-radius:0 0 30px 30px;transform:rotate(-18deg)}
+.fish-big b{font-family:"Noto Serif TC",serif;font-size:30px;letter-spacing:.3em;margin-top:38px}
+.counter-num{font-size:64px;font-weight:900;text-align:center;line-height:1.1;letter-spacing:.02em}
+.counter-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.counter-btns .btn{padding:13px 4px}
+.sign-card{text-align:center;padding:22px 18px}
+.sign-no{font-size:13px;letter-spacing:.3em;color:var(--ink2)}
+.sign-grade{font-family:"Noto Serif TC",serif;font-size:30px;font-weight:900;color:var(--seal);letter-spacing:.14em;margin:8px 0 2px}
+.sign-verse{font-family:"Noto Serif TC",serif;font-size:19px;line-height:2;letter-spacing:.06em}
+.sign-note{font-size:13.5px;color:var(--ink2);line-height:1.8;text-align:left;background:var(--paper);border-radius:12px;padding:13px 15px;margin-top:14px}
+.sign-date{font-size:13px;color:var(--ink2);margin-top:10px}
+
+/* ---------- 文章 ---------- */
+.article-row{display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}
+.article-row .num{font-family:"Noto Serif TC",serif;font-size:22px;font-weight:900;color:var(--pine2);flex:0 0 auto}
+.article-row h3{font-size:16.5px}
+.article-row p{margin:3px 0 0;font-size:13.5px;color:var(--ink2)}
+.article-body{font-family:"Noto Serif TC",serif;font-size:18px;line-height:2.1;letter-spacing:.03em}
+.article-body p{margin:0 0 1.1em;text-align:justify}
+/* ---------- 內建分享海報（不含連結與二維碼） ---------- */
+.share-sheet{text-align:left}
+.share-sheet h2{text-align:center}
+.share-sheet .lead{text-align:center}
+.poster{background:#edf3f0;border:1px solid #cbd8d2;border-radius:20px;overflow:hidden;margin:16px 0;color:#1f2b28}
+.poster-top{background:#1e4d44;color:#eef6f2;text-align:center;padding:26px 18px 22px;position:relative}
+.poster-top::after{content:"";position:absolute;right:-34px;top:-34px;width:130px;height:130px;border:1px solid #7fb8a3;border-radius:50%;opacity:.4;pointer-events:none}
+.poster-seal{width:56px;height:56px;border-radius:13px;background:#bf5a36;color:#fff;display:grid;place-items:center;font-family:"Noto Serif TC",serif;font-weight:900;font-size:30px;margin:0 auto 10px;transform:rotate(-4deg)}
+.poster-top h3{font-family:"Noto Serif TC",serif;font-size:30px;letter-spacing:.14em}
+.poster-top .sub{font-size:12.5px;letter-spacing:.2em;opacity:.85;margin-top:4px}
+.poster-top .tag{font-size:14px;color:#cfe6db;margin-top:10px}
+.poster-body{padding:16px 18px 6px}
+.poster-body h4{font-size:15px;letter-spacing:.08em;color:#1e4d44;margin:4px 0 8px}
+.poster-feats{font-size:14px;line-height:1.9;border-bottom:1px solid #cbd8d2;padding-bottom:12px}
+.poster-feats b{color:#1e4d44}
+.poster-how{padding-top:12px}
+.poster-how ol{margin:0;padding-left:20px;font-size:14px;line-height:1.9}
+.poster-note{font-size:13.5px;color:#5e726b;line-height:1.8;background:#dde8e3;border-radius:12px;padding:11px 13px;margin:14px 0}
+.poster-foot{text-align:center;font-size:12.5px;letter-spacing:.14em;color:#5e726b;padding:4px 12px 16px}
+.share-text{font-size:14px;line-height:1.8;background:var(--paper);border-radius:12px;padding:13px 15px;margin:0 0 14px}
+.fav-row{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding:13px 2px;flex-wrap:wrap}
+.fav-row:first-of-type{border-top:0}
+.sheet-list{text-align:left;margin:12px 0}
+.sheet-list div{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
+.sheet-list div:first-child{border-top:0}
+.sheet-list b{white-space:nowrap}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .work-grid,.mala-grid{grid-template-columns:1fr}
+  .record-grid{grid-template-columns:1fr 1fr}
+  .lib-list{grid-template-columns:1fr}
+  .char-panel{max-height:none}
+}
+@media (min-width:901px){
+  .shell{padding-bottom:40px}
+  .bottomnav{position:static;border:1px solid var(--line);border-radius:999px;margin:0 auto 18px;max-width:640px;padding:6px 8px;box-shadow:var(--shadow)}
+  .toast{bottom:40px}
+}
+@media (max-width:600px){
+  .mode-row{flex-direction:column;align-items:stretch}
+  .mode-row .seg{width:100%}
+  .hero-card h1{font-size:20px}
+  .reader-paper{padding:20px 16px}
+  .char-grid{grid-template-columns:repeat(6,1fr)}
+  .settings-grid{grid-template-columns:1fr}
+  .topbar{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><text x="24" y="33" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="27" font-weight="900" fill="#fff">易</text><path d="M13 39 Q24 35.5 35 39" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/></svg>
+      </span>
+      <div>
+        <b>天易抄經</b>
+        <small>佛 經 抄 寫 閱 讀 · 修 行 小 助 手</small>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="datechip" id="todayLabel"></span>
+      <button class="pillbtn" type="button" data-share-open>分享</button>
+      <button class="pillbtn" id="themeBtn" type="button" aria-pressed="false">深夜模式</button>
+    </div>
+  </header>
+
+  <!-- desktop nav sits here on wide screens; on phones it is fixed at bottom -->
+  <div class="bottomnav" id="bottomNav">
+    <nav aria-label="主導覽">
+      <button class="navbtn" type="button" data-tab="home" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9Z"/></svg>
+        首頁</button>
+      <button class="navbtn" type="button" data-tab="stats" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>
+        統計</button>
+      <button class="navbtn" type="button" data-tab="done" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h14v16H5z"/><path d="M9 12l2 2 4-4"/></svg>
+        已完成 <span class="badge" id="doneBadge" hidden>0</span></button>
+      <button class="navbtn" type="button" data-tab="practice" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="6" r="2.2"/><path d="M12 9c-4 1-6 4-6 8h12c0-4-2-7-6-8Z"/></svg>
+        修持</button>
+      <button class="navbtn" type="button" data-tab="settings" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>
+        設置</button>
+    </nav>
+  </div>
+
+  <section class="hero" aria-label="今日功課">
+    <div class="hero-card">
+      <span class="kicker">今 日 功 課</span>
+      <h1 id="heroTitle">般若波羅蜜多心經</h1>
+      <p id="heroSub">全文二百六十字 · 先靜心，再下筆，一字一念。</p>
+      <div class="progress-row">
+        <svg class="ring" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="26" fill="none" stroke="var(--line)" stroke-width="7"/>
+          <circle id="ringArc" cx="32" cy="32" r="26" fill="none" stroke="var(--jade2)" stroke-width="7" stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="163.36" transform="rotate(-90 32 32)"/>
+          <text class="num" x="32" y="37" text-anchor="middle" id="ringPct">0%</text>
+        </svg>
+        <div>
+          <div style="font-weight:700" id="heroProgressText">已抄 0 / 260 字</div>
+          <div class="muted" id="heroTimeText">尚未開始計時</div>
+        </div>
+        <button class="btn" type="button" id="heroContinue">繼續抄寫</button>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="n" id="todayChars">0 字</div>
+      <div class="lbl">今日已抄（本次開啟）</div>
+      <div class="sub" id="todaySub">念珠 0 遍 · 靜坐 0 分鐘</div>
+    </div>
+  </section>
+
+  <!-- ============ 抄經 ============ -->
+  <section class="panel active" id="panel-home" aria-label="首頁">
+    <div class="home-seg" role="group" aria-label="抄經、讀經或文章">
+      <button type="button" id="homeSegCopy" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20h16M6 16l1-9 3 1 2-5 3 6 2-2 1 9"/></svg>抄經</button>
+      <button type="button" id="homeSegRead" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg>讀經</button>
+      <button type="button" id="homeSegArticle" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h14v16H5z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>文章</button>
+    </div>
+
+    <div id="homeView">
+      <div class="rec-card">
+        <h2>⚑ 從這裡開始 · 推薦第一篇</h2>
+        <p class="sub">輕鬆完成，安心踏出第一步</p>
+        <button class="rec-row" type="button" data-rec="liuziming"><b>六字大明咒</b><span>6 字 · 約 1 分鐘 ›</span></button>
+        <button class="rec-row" type="button" data-rec="fohao"><b>南無阿彌陀佛</b><span>6 字 · 約 1 分鐘 ›</span></button>
+        <button class="rec-row" type="button" data-rec="xinjing"><b>般若波羅蜜多心經</b><span>260 字 · 約 7 分鐘 ›</span></button>
+      </div>
+
+      <div class="total-strip">
+        <span aria-hidden="true" style="font-size:26px">📊</span>
+        <div><div class="n" id="homeTotalChars">0 字</div><div class="lbl">總抄寫字數 · 本次開啟累計</div></div>
+      </div>
+
+      <button class="global-btn" type="button" id="globalStatsBtn"><span>本機抄寫統計</span><span>查看 ›</span></button>
+      <p class="muted" style="margin:2px 0 0">本頁為單機版，沒有連網伺服器：統計數字為本機本次開啟的累計，不含他人數據。</p>
+      <button class="global-btn" type="button" data-share-open style="margin-top:10px"><span>分享這個 App · 內建海報</span><span>打開 ›</span></button>
+      <p class="muted" style="margin:2px 0 0">海報在 App 裡直接生成，不含連結與二維碼，點開就能看、下載就能傳。</p>
+
+      <div class="list-head"><span class="ic" aria-hidden="true">📖</span><h2>經文</h2></div>
+      <div class="chips" id="homeFilters" style="margin-bottom:12px">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">全部</button>
+        <button class="chip" type="button" data-filter="short" aria-pressed="false">短篇</button>
+        <button class="chip" type="button" data-filter="long" aria-pressed="false">長篇</button>
+        <button class="chip" type="button" data-filter="chant" aria-pressed="false">持誦 · 佛號</button>
+        <button class="chip" type="button" data-filter="fav" aria-pressed="false">★ 我的收藏</button>
+      </div>
+      <div class="sutra-rows" id="homeSutraList"></div>
+      <p class="muted" style="margin:10px 0 0">點經名開始抄寫；點「讀」打開讀經；點星號收藏，收藏的經文會出現在「已完成」頁。</p>
+    </div>
+
+    <div class="opening-verse" id="openingVerse">
+      <small>開 經 偈</small>
+      無上甚深微妙法，百千萬劫難遭遇。<br/>我今見聞得受持，願解如來真實義。
+      <div style="margin-top:8px"><button class="pillbtn" type="button" id="hideVerse">開始抄寫</button></div>
+    </div>
+
+    <div class="work-grid" id="copyWorkspace">
+      <div class="card">
+        <div class="context">
+          <div class="lbl">當 前 句 · 第 <span id="ctxPos">1</span> 字</div>
+          <div class="sent" id="ctxSentence">觀</div>
+        </div>
+
+        <div class="mode-row">
+          <div class="seg" role="group" aria-label="抄寫方式">
+            <button type="button" id="modeWrite" aria-pressed="true">手寫描紅</button>
+            <button type="button" id="modeType" aria-pressed="false">鍵入抄寫</button>
+          </div>
+          <div class="seg" role="group" aria-label="紙張">
+            <button type="button" data-paperbtn="xuan" aria-pressed="true">宣紙</button>
+            <button type="button" data-paperbtn="mi" aria-pressed="false">青瓷</button>
+            <button type="button" data-paperbtn="bai" aria-pressed="false">素白</button>
+            <button type="button" data-paperbtn="ye" aria-pressed="false">深夜</button>
+          </div>
+        </div>
+
+        <div class="paper-stage" id="paperStage" data-paper="xuan">
+          <div class="grid-wrap">
+            <canvas id="writeCanvas" width="860" height="860" aria-label="描紅寫字板，在此描寫當前經字"></canvas>
+            <div class="type-stage" aria-hidden="true">
+              <span class="bigchar" id="bigChar">觀</span>
+              <span class="hint">在下方輸入框鍵入此字，即落筆</span>
+            </div>
+          </div>
+        </div>
+        <div class="stage-foot">
+          <span>第 <b id="charPos">1</b> / <b id="charTotal">260</b> 字 · <span id="charPinyinLabel">描紅字</span> <b class="serif" id="currentCharLabel" style="font-size:20px">觀</b></span>
+          <span>用時 <b id="elapsedLabel">00:00</b> <button class="pillbtn" type="button" id="pauseTimerBtn" style="padding:4px 10px">暫停計時</button></span>
+        </div>
+
+        <div class="type-input-row" id="typeRow" hidden>
+          <input id="typeInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="4" placeholder="鍵入此字" aria-label="鍵入當前經字" />
+          <button class="btn" type="button" id="typeConfirm">落筆</button>
+        </div>
+
+        <div class="brush-row" id="brushRow">
+          <label for="brushSize">筆粗 <span id="brushSizeVal">7</span></label>
+          <input type="range" id="brushSize" min="3" max="16" value="7" />
+          <label for="fadeRange">描紅深淺</label>
+          <input type="range" id="fadeRange" min="8" max="55" value="26" />
+          <button class="swatch" type="button" data-ink="#1f2b28" style="background:#1f2b28" aria-pressed="true" aria-label="墨色"></button>
+          <button class="swatch" type="button" data-ink="#bf5a36" style="background:#bf5a36" aria-pressed="false" aria-label="硃砂"></button>
+          <button class="swatch" type="button" data-ink="#2f6b7a" style="background:#2f6b7a" aria-pressed="false" aria-label="黛青"></button>
+          <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="autoNext" /> 寫完自動下一字</label>
+        </div>
+
+        <div class="action-row">
+          <button class="btn ghost" type="button" id="undoBtn">↩ 撤銷一筆</button>
+          <button class="btn ghost" type="button" id="clearBtn">清除此字</button>
+          <button class="btn ghost" type="button" id="prevBtn">上一字</button>
+          <button class="btn" type="button" id="nextBtn">此字完成 · 下一字 →</button>
+        </div>
+        <p class="muted" style="margin:12px 0 0">手寫時請在格內一筆一畫描寫；描紅字僅作臨摹底樣，不會存入作品。想跳字，可在右側全文對照中點選。</p>
+      </div>
+
+      <aside class="card char-panel">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+          <h2>全文對照</h2>
+          <span class="muted" id="sutraMiniTitle">心經</span>
+        </div>
+        <p class="muted" style="margin:6px 0 0">點任一字可跳轉；已寫的字會打勾留底。</p>
+        <div class="char-grid" id="charGrid" role="listbox" aria-label="全文逐字對照"></div>
+        <div class="mini-stats">
+          <div><b id="statDone">0</b><span>已寫</span></div>
+          <div><b id="statLeft">260</b><span>餘字</span></div>
+          <div><b id="statRate">—</b><span>字 / 分鐘</span></div>
+        </div>
+        <div style="margin-top:14px">
+          <label for="gridStyle" style="font-size:13px;color:var(--ink2);display:block;margin-bottom:6px">格線樣式</label>
+          <select id="gridStyle" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;background:var(--card);color:var(--ink)">
+            <option value="tian">田字格</option>
+            <option value="mi">米字格</option>
+            <option value="jiu">九宮格</option>
+            <option value="none">無格線</option>
+          </select>
+        </div>
+        <div style="margin-top:10px">
+          <label for="modelFont" style="font-size:13px;color:var(--ink2);display:block;margin-bottom:6px">描紅字體</label>
+          <select id="modelFont" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;background:var(--card);color:var(--ink)">
+            <option value="serif">宋體（端正）</option>
+            <option value="kai">楷體（近手寫）</option>
+          </select>
+        </div>
+        <button class="btn ghost block" type="button" id="restartBtn" style="margin-top:14px">重新抄寫本部經</button>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ 文章 ============ -->
+  <section class="panel" id="panel-library" aria-label="文章">
+    <div id="articleListView">
+      <div class="section-title"><h2>文章</h2><span>讀經札記 · 抄經入門</span></div>
+      <p class="muted" style="margin:0 0 12px">短篇札記，讀完可直接去抄、去讀相應的經。</p>
+      <div class="sutra-rows" id="articleList"></div>
+    </div>
+    <div id="articleView" hidden>
+      <div class="backbar"><button class="pillbtn" type="button" id="articleBack">← 回文章列表</button><h2 id="articleViewTitle"></h2></div>
+      <article class="card"><div class="article-body" id="articleBody"></div>
+        <div class="action-row" id="articleCta"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 讀經 ============ -->
+  <section class="panel" id="panel-read" aria-label="讀經">
+    <div class="backbar"><button class="pillbtn" type="button" id="readBackHome">← 回首頁</button><h2>讀經</h2><span class="muted" id="readMeta">心經 · 全文</span></div>
+    <button class="global-btn" type="button" id="globalReadBtn"><span>本機讀經統計</span><span>查看 ›</span></button>
+    <p class="muted" style="margin:2px 0 12px">單機版無連網匯總：這裡顯示的是本機本次開啟的讀經與抄寫累計。</p>
+    <div class="list-head"><span class="ic" aria-hidden="true">📖</span><h2>經文</h2></div>
+    <div class="sutra-rows" id="readList" style="margin-bottom:18px"></div>
+    <div class="section-title"><h2 id="readerHeading">正在讀</h2><span>點上方經文切換</span></div>
+    <div class="reader-tools card" style="padding:12px 16px">
+      <label>字號 <input type="range" id="fontSize" min="17" max="30" value="20" /> <span id="fontSizeVal">20</span></label>
+      <label>行距 <input type="range" id="lineGap" min="1.7" max="2.8" step="0.1" value="2.15" /></label>
+      <div class="seg"><button type="button" id="dirH" aria-pressed="true">橫排</button><button type="button" id="dirV" aria-pressed="false">直排</button></div>
+      <button class="pillbtn" type="button" id="readTopBtn">回到卷首</button>
+    </div>
+    <article class="reader-paper" id="readerPaper">
+      <div class="reader-title"><h2 id="readerTitle">般若波羅蜜多心經</h2><p id="readerSub">唐三藏法師玄奘 譯</p></div>
+      <div class="reader-text" id="readerText"></div>
+    </article>
+    <div class="reader-foot">
+      <span id="readProgress">已讀約 0%</span>
+      <span>讀完可到「抄經」頁親手抄一遍，讀寫相參。</span>
+    </div>
+  </section>
+
+  <!-- ============ 統計 ============ -->
+  <section class="panel" id="panel-stats" aria-label="統計">
+    <div class="section-title"><h2>統計</h2><span>本次開啟累計</span></div>
+    <div class="record-grid">
+      <div class="card"><b id="statTotalChars">0</b><span>抄寫總字數</span></div>
+      <div class="card"><b id="statTotalDone">0</b><span>圓滿部數</span></div>
+      <div class="card"><b id="statTotalChants">0</b><span>念佛計數</span></div>
+      <div class="card"><b id="statTotalSit">0 分</b><span>靜坐合計</span></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>每日目標</h3>
+      <p class="muted" style="margin:4px 0 0">今天想抄多少字？選一個目標，進度會即時顯示。</p>
+      <div class="goal-row">
+        <button class="chip" type="button" data-goalchars="108" aria-pressed="false">108 字</button>
+        <button class="chip" type="button" data-goalchars="260" aria-pressed="true">260 字 · 一部心經</button>
+        <button class="chip" type="button" data-goalchars="500" aria-pressed="false">500 字</button>
+        <button class="chip" type="button" data-goalchars="1000" aria-pressed="false">1000 字</button>
+      </div>
+      <div class="bar" style="margin-top:12px"><i id="goalBar" style="width:0%"></i></div>
+      <p class="muted" id="goalLabel" style="margin:8px 0 0">已抄 0 / 260 字</p>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>各部經進度</h3>
+      <p class="muted" style="margin:4px 0 0">切換經文也不會丟失進度，回到該經可繼續抄。</p>
+      <div class="stat-bars" id="statBars"></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>統計說明</h3>
+      <p class="muted" style="margin:6px 0 0">本頁為單機版，沒有帳號與伺服器，無法取得全球即時數據；上面所有數字都是這台裝置、本次開啟的真實累計。關閉頁面後計數歸零，圓滿的作品請及時下載保存。</p>
+      <button class="btn ghost" type="button" id="statsGlobalBtn" style="margin-top:10px">查看本機匯總</button>
+    </div>
+  </section>
+
+  <!-- ============ 修持 ============ -->
+  <section class="panel" id="panel-practice" aria-label="修持">
+    <div id="practiceHome">
+      <div class="list-head"><span class="ic" aria-hidden="true">▲</span><h2>持誦工具</h2></div>
+      <div class="tool-list">
+        <button class="tool-card" type="button" data-tool="fish"><span class="tic" aria-hidden="true">🪵</span><span><h3>木魚</h3><p>節奏敲擊，幫助專注</p></span><span class="chev">›</span></button>
+        <button class="tool-card" type="button" data-tool="mala"><span class="tic" aria-hidden="true">◯</span><span><h3>佛珠</h3><p>撥珠計數，記錄進度</p></span><span class="chev">›</span></button>
+        <button class="tool-card" type="button" data-tool="counter"><span class="tic" aria-hidden="true">▦</span><span><h3>計數器</h3><p>簡單計數，方便實用</p></span><span class="chev">›</span></button>
+        <button class="tool-card" type="button" data-tool="sit"><span class="tic" aria-hidden="true">🧘</span><span><h3>靜坐計時</h3><p>隨呼吸靜坐，時間到鳴磬</p></span><span class="chev">›</span></button>
+      </div>
+      <div class="list-head"><span class="ic" aria-hidden="true">☀</span><h2>每日修持</h2></div>
+      <div class="tool-list">
+        <button class="tool-card" type="button" data-tool="sign"><span class="tic" aria-hidden="true">✦</span><span><h3>每日一簽</h3><p id="signPreview">一日一抽，境隨心轉</p></span><span class="chev">›</span></button>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>今日功課一覽</h3>
+        <p class="muted" id="dailySummary" style="margin:6px 0 0">抄字 0 · 念佛 0 聲 · 靜坐 0 分鐘</p>
+        <div class="action-row">
+          <button class="btn ghost" type="button" id="dailyGoCopy">去抄經</button>
+          <button class="btn ghost" type="button" id="dailyGoRead">去讀經</button>
+          <button class="btn ghost" type="button" id="dailyGoMala">去念佛</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="practiceTool" hidden>
+      <div class="backbar"><button class="pillbtn" type="button" id="practiceBack">← 回修持</button><h2 id="practiceTitle">佛珠</h2></div>
+    <div class="seg" style="margin-bottom:14px" role="group" aria-label="念珠或靜坐" id="practiceSeg" hidden>
+      <button type="button" id="subMala" aria-pressed="true">念珠計數</button>
+      <button type="button" id="subSit" aria-pressed="false">靜坐計時</button>
+    </div>
+
+    <div id="malaView">
+      <div class="mala-grid">
+        <div class="card" style="text-align:center">
+          <h2>念珠</h2>
+          <p class="muted" style="margin:4px 0 0">點中央圓盤或木魚計數，滿一百零八為一圈。</p>
+          <div class="mala-stage" id="malaStage" aria-label="念珠圈"></div>
+          <button class="btn block fish-btn" type="button" id="fishBtn">🪵 敲木魚 · 計一聲</button>
+          <div class="action-row">
+            <button class="btn ghost" type="button" id="malaUndo">撤回一聲</button>
+            <button class="btn ghost" type="button" id="malaReset">重新計數</button>
+          </div>
+          <label style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:12px;font-size:13.5px;color:var(--ink2)"><input type="checkbox" id="soundToggle" checked /> 木魚聲</label>
+        </div>
+        <div class="card">
+          <h3>持名</h3>
+          <div class="chips" id="chantPicker" style="margin-top:10px">
+            <button class="chip" type="button" data-chant="南無阿彌陀佛" aria-pressed="true">南無阿彌陀佛</button>
+            <button class="chip" type="button" data-chant="南無大慈大悲觀世音菩薩" aria-pressed="false">南無觀世音菩薩</button>
+            <button class="chip" type="button" data-chant="唵嘛呢叭咪吽" aria-pressed="false">唵嘛呢叭咪吽</button>
+          </div>
+          <div class="mini-stats" style="grid-template-columns:1fr 1fr">
+            <div><b id="malaCount">0</b><span>本圈計數</span></div>
+            <div><b id="malaRounds">0</b><span>已滿圈數</span></div>
+          </div>
+          <p class="muted" style="margin-top:12px">一聲一念，念從心起。計數只在本次開啟中保留，關閉頁面即清零；想留存，可到「已完成」頁查看本次合計。</p>
+          <h3 style="margin-top:18px">目標</h3>
+          <div class="chips" id="malaGoal" style="margin-top:8px">
+            <button class="chip" type="button" data-goal="108" aria-pressed="true">一圈 108</button>
+            <button class="chip" type="button" data-goal="324" aria-pressed="false">三圈 324</button>
+            <button class="chip" type="button" data-goal="1080" aria-pressed="false">十圈 1080</button>
+          </div>
+          <p class="muted" id="goalText" style="margin-top:10px">還差 108 聲滿一圈。</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="sitView" hidden>
+      <div class="card" style="max-width:560px;margin:0 auto;text-align:center">
+        <h2>靜坐</h2>
+        <p class="muted" style="margin:4px 0 0">坐直，放鬆肩膀，隨圓圈呼吸。時間到會鳴磬一聲。</p>
+        <div class="breath" id="breathBall"><span id="breathLabel">預備</span></div>
+        <div class="timer-num" id="sitTimer">10:00</div>
+        <div class="dur-chips" style="margin:14px 0">
+          <button class="chip" type="button" data-mins="5" aria-pressed="false">5 分鐘</button>
+          <button class="chip" type="button" data-mins="10" aria-pressed="true">10 分鐘</button>
+          <button class="chip" type="button" data-mins="15" aria-pressed="false">15 分鐘</button>
+          <button class="chip" type="button" data-mins="30" aria-pressed="false">30 分鐘</button>
+        </div>
+        <div class="action-row" style="max-width:380px;margin:0 auto">
+          <button class="btn" type="button" id="sitStart">開始靜坐</button>
+          <button class="btn ghost" type="button" id="sitStop">結束</button>
+        </div>
+        <p class="muted" style="margin-top:14px">本次靜坐 <b id="sitDoneLabel" style="color:var(--ink)">0 分鐘</b>（計入今日功課）。</p>
+      </div>
+    </div>
+
+    <div id="fishView" hidden>
+      <div class="card" style="max-width:560px;margin:0 auto;text-align:center">
+        <h2>木魚</h2>
+        <p class="muted" style="margin:4px 0 0">點木魚敲一聲，節奏敲擊，幫助專注。</p>
+        <button class="fish-big" type="button" id="woodFishBtn" aria-label="敲木魚"><span class="eye" aria-hidden="true"></span><span class="mouth" aria-hidden="true"></span><b>木魚</b></button>
+        <div class="counter-num" id="fishCount">0</div>
+        <p class="muted">已敲 <span id="fishCountLabel">0</span> 聲 · 計入念佛計數</p>
+        <div class="seg" style="margin:12px auto 0" role="group" aria-label="敲擊節奏">
+          <button type="button" data-tempo="0" aria-pressed="true">手動</button>
+          <button type="button" data-tempo="60" aria-pressed="false">慢 · 每分鐘 60</button>
+          <button type="button" data-tempo="90" aria-pressed="false">中 · 每分鐘 90</button>
+          <button type="button" data-tempo="120" aria-pressed="false">快 · 每分鐘 120</button>
+        </div>
+        <div class="action-row" style="max-width:380px;margin:14px auto 0">
+          <button class="btn" type="button" id="fishAutoBtn">開始自動敲擊</button>
+          <button class="btn ghost" type="button" id="fishResetBtn">歸零</button>
+        </div>
+        <p class="muted" style="margin-top:12px">自動敲擊會按所選節奏持續敲擊，再點一次停止。離開本頁即停止。</p>
+      </div>
+    </div>
+
+    <div id="counterView" hidden>
+      <div class="card" style="max-width:560px;margin:0 auto;text-align:center">
+        <h2>計數器</h2>
+        <p class="muted" style="margin:4px 0 0">簡單計數，方便實用：念佛、拜佛、繞佛皆可用。</p>
+        <div style="margin:14px 0 4px"><input id="counterName" type="text" value="念佛計數" aria-label="計數名稱" style="border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--card);color:var(--ink);text-align:center;font-size:16px;max-width:260px;width:100%" /></div>
+        <div class="counter-num" id="counterNum">0</div>
+        <div class="bar" style="margin:6px 0 2px"><i id="counterBar" style="width:0%"></i></div>
+        <p class="muted" id="counterGoalLabel">目標 108 · 還差 108</p>
+        <div class="counter-btns">
+          <button class="btn" type="button" id="counterPlus1">+1</button>
+          <button class="btn" type="button" id="counterPlus10">+10</button>
+          <button class="btn ghost" type="button" id="counterMinus1">−1</button>
+          <button class="btn ghost" type="button" id="counterReset">歸零</button>
+        </div>
+        <div class="goal-row" style="justify-content:center">
+          <span class="muted">目標</span>
+          <button class="chip" type="button" data-cgoal="108" aria-pressed="true">108</button>
+          <button class="chip" type="button" data-cgoal="1000" aria-pressed="false">1000</button>
+          <button class="chip" type="button" data-cgoal="10000" aria-pressed="false">10000</button>
+        </div>
+        <div class="action-row" style="max-width:380px;margin:14px auto 0"><button class="btn ghost" type="button" id="counterAddToTotal">把計數併入今日念佛總數</button></div>
+        <p class="muted" style="margin-top:10px">計數只在本次開啟中保留；「併入總數」後會加到首頁與統計的念佛計數裡。</p>
+      </div>
+    </div>
+
+    <div id="signView" hidden>
+      <div class="card sign-card" style="max-width:560px;margin:0 auto">
+        <h2>每日一簽</h2>
+        <p class="muted" style="margin:4px 0 0">一日一抽，境隨心轉。同一天抽到的都是同一支簽。</p>
+        <div id="signResult" hidden>
+          <div class="sign-no" id="signNo">第 1 簽</div>
+          <div class="sign-grade" id="signGrade"></div>
+          <div class="sign-verse" id="signVerse"></div>
+          <div class="sign-note" id="signNote"></div>
+          <div class="sign-date" id="signDate"></div>
+        </div>
+        <div id="signEmpty" style="padding:22px 0 6px">
+          <div style="font-size:44px" aria-hidden="true">✦</div>
+          <p class="muted">靜心片刻，再抽今日之簽。</p>
+        </div>
+        <div class="action-row" style="max-width:320px;margin:16px auto 0"><button class="btn" type="button" id="drawSignBtn">抽今日之簽</button></div>
+        <p class="muted" style="margin-top:14px">簽文僅作每日修習的提醒與勉勵，不作占斷、不論吉凶禍福；修行路上，以經文與自心為準。</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ 已完成 ============ -->
+  <section class="panel" id="panel-done" aria-label="已完成">
+    <div class="section-title"><h2>已完成</h2><span>僅保留於本次開啟</span></div>
+    <div class="record-grid">
+      <div class="card"><b id="recChars">0</b><span>今日抄字</span></div>
+      <div class="card"><b id="recDone">0</b><span>圓滿部數</span></div>
+      <div class="card"><b id="recChants">0</b><span>念佛計數</span></div>
+      <div class="card"><b id="recSit">0 分</b><span>靜坐合計</span></div>
+    </div>
+
+    <div class="section-title"><h2>★ 我的收藏</h2><span id="favCountLabel"></span></div>
+    <div class="card" id="favList"><div class="empty">還沒有收藏。回到首頁或讀經頁，點經文旁的星號即可收藏。</div></div>
+
+    <div class="section-title"><h2>本次抄寫記錄</h2><span id="recCountLabel"></span></div>
+    <div class="card" id="recordList"><div class="empty">還沒有完成的抄經。寫滿一部經，這裡會出現記錄，並可下載作品圖。</div></div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>偏好設定</h3>
+      <p class="muted" style="margin:6px 0 0">紙張、格線、字體、佛號遍數等設定，已移到「設置」頁。</p>
+      <div class="action-row"><button class="btn ghost" type="button" id="goSettingsBtn">前往設置 →</button></div>
+    </div>
+  </section>
+
+  <!-- ============ 設置 ============ -->
+  <section class="panel" id="panel-settings" aria-label="設置">
+    <div class="section-title"><h2>設置</h2><span>僅作用於本次開啟</span></div>
+    <div class="card">
+      <h3>抄寫偏好</h3>
+      <div class="settings-grid" style="margin-top:10px">
+        <div><label for="setPaper">預設紙張</label>
+          <select id="setPaper"><option value="xuan">宣紙</option><option value="mi">青瓷</option><option value="bai">素白</option><option value="ye">深夜</option></select></div>
+        <div><label for="setGrid">預設格線</label>
+          <select id="setGrid"><option value="tian">田字格</option><option value="mi">米字格</option><option value="jiu">九宮格</option><option value="none">無格線</option></select></div>
+        <div><label for="setFont">描紅字體</label>
+          <select id="setFont"><option value="serif">宋體</option><option value="kai">楷體</option></select></div>
+        <div><label for="setRepeats">佛號抄寫遍數（《南無阿彌陀佛》）</label>
+          <select id="setRepeats"><option value="1">1 遍 · 6 字</option><option value="3">3 遍 · 18 字</option><option value="7">7 遍 · 42 字</option><option value="21">21 遍 · 126 字</option><option value="108">108 遍 · 648 字</option></select></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>聲音與閱讀</h3>
+      <div class="settings-grid" style="margin-top:10px">
+        <div><label style="display:flex;gap:8px;align-items:center;margin:0"><input type="checkbox" id="soundToggle2" checked /> 木魚聲（與念珠頁同步）</label></div>
+        <div><label for="setReaderSize">讀經預設字號：<span id="setReaderSizeVal">20</span></label>
+          <input type="range" id="setReaderSize" min="17" max="30" value="20" style="width:100%;accent-color:var(--pine)" /></div>
+      </div>
+      <div class="action-row"><button class="btn ghost" type="button" id="themeBtn2">切換深夜 / 淺色模式</button></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>功課摘要</h3>
+      <p class="muted" style="margin:6px 0 0">把本次開啟的抄寫、念佛、靜坐合計下載為文字，方便自己留存。</p>
+      <div class="action-row"><button class="btn" type="button" id="exportSummaryBtn">下載功課摘要</button></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>清除本次記錄</h3>
+      <p class="muted" style="margin:6px 0 0">清除後，本次開啟的抄寫進度、念佛計數、靜坐與完成記錄全部歸零，無法恢復。</p>
+      <div class="action-row"><button class="btn ghost" type="button" id="clearSessionBtn">清除本次記錄</button></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>分享給朋友</h3>
+      <p class="muted" style="margin:6px 0 0">分享不用連結：海報由 App 內建生成，不含連結與二維碼。下載海報傳給朋友，再把 App 檔案本身傳給對方，對方用瀏覽器開啟就能用。</p>
+      <div class="action-row"><button class="btn" type="button" data-share-open>打開內建分享海報</button></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>關於</h3>
+      <p class="muted" style="margin:6px 0 0">天易抄經 · 佛經抄寫閱讀 · 修行小助手。經文取傳統通行版本，僅供個人修習使用；抄寫、讀經、念珠、靜坐、計數、每日一簽皆為單機功能，不連網、不上傳數據。簽文僅作修習提醒，不作占斷。</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    天易抄經 · 佛經抄寫閱讀 · 修行小助手<br/>
+    經文為傳統通行版本，僅供個人修習使用。
+  </footer>
+</div>
+
+<!-- 圓滿 -->
+<div class="overlay" id="doneOverlay" role="dialog" aria-modal="true" aria-labelledby="doneTitle">
+  <div class="sheet">
+    <div class="seal">圓滿</div>
+    <h2 id="doneTitle">此經抄寫圓滿</h2>
+    <p id="doneMeta">心經 · 260 字 · 用時 00:00</p>
+    <div class="dedication">願以此功德，莊嚴佛淨土，<br/>上報四重恩，下濟三途苦。<br/>若有見聞者，悉發菩提心，<br/>盡此一報身，同生極樂國。</div>
+    <div class="row">
+      <button class="btn" type="button" id="dlImageBtn">下載作品圖</button>
+      <button class="btn ghost" type="button" id="dlTextBtn">下載抄經文</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn ghost" type="button" id="againBtn">再抄一遍</button>
+      <button class="btn ghost" type="button" id="closeDoneBtn">回到首頁</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="globalOverlay" role="dialog" aria-modal="true" aria-labelledby="globalTitle">
+  <div class="sheet">
+    <div class="seal">統計</div>
+    <h2 id="globalTitle">本機統計匯總</h2>
+    <p>本頁為單機版，沒有帳號與伺服器，無法取得全球即時數據；以下為這台裝置、本次開啟的真實累計。</p>
+    <div class="sheet-list" id="globalList"></div>
+    <div class="row"><button class="btn" type="button" id="closeGlobalBtn">知道了</button></div>
+  </div>
+</div>
+
+<!-- 內建分享 -->
+<div class="overlay" id="shareOverlay" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+  <div class="sheet share-sheet">
+    <div class="seal">易</div>
+    <h2 id="shareTitle">分享這個 App</h2>
+    <p class="lead">不用連結，不跳轉。下面這張海報由 App 在本機直接生成：點開就能看，下載就能傳。</p>
+    <div class="row" style="margin-bottom:4px">
+      <button class="btn" type="button" id="dlPosterBtn">下載分享圖</button>
+      <button class="btn ghost" type="button" id="copyShareBtn">複製分享文字</button>
+    </div>
+    <div class="poster" id="posterPreview" aria-label="天易抄經分享海報預覽">
+      <div class="poster-top">
+        <div class="poster-seal">易</div>
+        <h3>天易抄經</h3>
+        <div class="sub">佛 經 抄 寫 閱 讀 · 修 行 小 助 手</div>
+        <div class="tag">抄經 · 讀經 · 修持，一個 App 就夠了</div>
+      </div>
+      <div class="poster-body">
+        <h4>裡面有什麼</h4>
+        <div class="poster-feats">
+          <div><b>抄經描紅</b>：手寫描紅、鍵入抄寫、全文對照，9 部經文</div>
+          <div><b>讀經文章</b>：橫排直排、字號行距可調，附讀經札記</div>
+          <div><b>修持工具</b>：木魚、佛珠、計數器、靜坐、每日一簽</div>
+        </div>
+        <div class="poster-how">
+          <h4>怎麼分享給朋友</h4>
+          <ol>
+            <li>把這個 App 檔案傳給朋友（微信、QQ、網盤都可以）。</li>
+            <li>對方收到後下載，用瀏覽器開啟。</li>
+            <li>不用聯網、不用註冊，開啟就能抄經、讀經、修持。</li>
+          </ol>
+        </div>
+        <p class="poster-note">這張海報沒有連結，也沒有二維碼——直接把 App 檔案傳給對方，開啟就能用，不會跳到別的地方。</p>
+      </div>
+      <div class="poster-foot">單文件離線版 · 不用聯網 · 不用註冊</div>
+    </div>
+    <p class="share-text" id="shareText">天易抄經——佛經抄寫閱讀 · 修行小助手：抄經描紅、讀經、文章、木魚、佛珠、計數器、靜坐、每日一簽，9 部經文，單機記錄。沒有連結：把 App 檔案直接傳給對方，用瀏覽器開啟就能用，不用聯網。</p>
+    <div class="row" style="margin-top:8px">
+      <button class="btn ghost" type="button" id="closeShareBtn">關閉</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+
+/* ---------- 經文資料（通行版本） ---------- */
+var SUTRAS=[
+ {id:"xinjing",title:"般若波羅蜜多心經",short:"心經",translator:"唐三藏法師玄奘 譯",cat:"short",level:"入門首選",
+  desc:"般若心要，二百六十字，一部經的精華，適合每日一抄。",
+  text:"觀自在菩薩，行深般若波羅蜜多時，照見五蘊皆空，度一切苦厄。舍利子，色不異空，空不異色，色即是空，空即是色，受想行識，亦復如是。舍利子，是諸法空相，不生不滅，不垢不淨，不增不減。是故空中無色，無受想行識，無眼耳鼻舌身意，無色聲香味觸法，無眼界，乃至無意識界。無無明，亦無無明盡，乃至無老死，亦無老死盡。無苦集滅道，無智亦無得。以無所得故，菩提薩埵，依般若波羅蜜多故，心無罣礙，無罣礙故，無有恐怖，遠離顛倒夢想，究竟涅槃。三世諸佛，依般若波羅蜜多故，得阿耨多羅三藐三菩提。故知般若波羅蜜多，是大神咒，是大明咒，是無上咒，是無等等咒，能除一切苦，真實不虛。故說般若波羅蜜多咒，即說咒曰：揭諦揭諦，波羅揭諦，波羅僧揭諦，菩提薩婆訶。"},
+ {id:"jingang",title:"金剛般若波羅蜜經（卷首四分）",short:"金剛經",translator:"姚秦三藏法師鳩摩羅什 譯 · 節選",cat:"long",level:"進階",
+  desc:"法會因由、善現啟請、大乘正宗、妙行無住——卷首四分，慢抄細參。",
+  text:"法會因由分第一\n如是我聞：一時，佛在舍衛國祇樹給孤獨園。與大比丘眾千二百五十人俱。爾時，世尊食時，著衣持缽，入舍衛大城乞食。於其城中次第乞已，還至本處。飯食訖，收衣缽，洗足已，敷座而坐。\n善現啟請分第二\n時，長老須菩提在大眾中即從座起，偏袒右肩，右膝著地，合掌恭敬而白佛言：希有，世尊！佛善護念諸菩薩，善付囑諸菩薩。世尊！善男子、善女人，發阿耨多羅三藐三菩提心，應云何住，云何降伏其心？佛言：善哉，善哉！須菩提！如汝所說，佛善護念諸菩薩，善付囑諸菩薩。汝今諦聽，當為汝說：善男子、善女人，發阿耨多羅三藐三菩提心，應如是住，如是降伏其心。唯然，世尊！願樂欲聞。\n大乘正宗分第三\n佛告須菩提：諸菩薩摩訶薩應如是降伏其心：所有一切眾生之類，若卵生、若胎生、若濕生、若化生；若有色、若無色；若有想、若無想；若非有想非無想，我皆令入無餘涅槃而滅度之。如是滅度無量無數無邊眾生，實無眾生得滅度者。何以故？須菩提！若菩薩有我相、人相、眾生相、壽者相，即非菩薩。\n妙行無住分第四\n復次，須菩提！菩薩於法，應無所住，行於布施。所謂不住色布施，不住聲香味觸法布施。須菩提！菩薩應如是布施，不住於相。何以故？若菩薩不住相布施，其福德不可思量。須菩提！於意云何？東方虛空可思量不？不也，世尊！須菩提！南西北方、四維上下虛空可思量不？不也，世尊！須菩提！菩薩無住相布施，福德亦復如是不可思量。須菩提！菩薩但應如是住，如所教住。"},
+ {id:"dabei",title:"千手千眼觀世音菩薩廣大圓滿無礙大悲心陀羅尼",short:"大悲咒",translator:"持誦本 · 通行版本",cat:"chant",level:"持誦",
+  desc:"八十四句大悲真言，宜緩聲持誦、逐字抄寫，攝心為要。",
+  text:"南無喝囉怛那哆囉夜耶，南無阿唎耶，婆盧羯帝爍缽囉耶，菩提薩埵婆耶，摩訶薩埵婆耶，摩訶迦盧尼迦耶，唵，薩皤囉罰曳，數怛那怛寫，南無悉吉慄埵伊蒙阿唎耶，婆盧吉帝室佛囉楞馱婆，南無那囉謹墀，醯利摩訶皤哆沙咩，薩婆阿他豆輸朋，阿逝孕，薩婆薩哆那摩婆薩哆那摩婆伽，摩罰特豆，怛姪他，唵阿婆盧醯，盧迦帝，迦羅帝，夷醯唎，摩訶菩提薩埵，薩婆薩婆，摩囉摩囉，摩醯摩醯唎馱孕，俱盧俱盧羯蒙，度盧度盧罰闍耶帝，摩訶罰闍耶帝，陀囉陀囉，地唎尼，室佛囉耶，遮囉遮囉，摩摩罰摩囉，穆帝隸，伊醯伊醯，室那室那，阿囉參佛囉舍利，罰沙罰參，佛囉舍耶，呼嚧呼嚧摩囉，呼嚧呼嚧醯利，娑囉娑囉，悉唎悉唎，蘇嚧蘇嚧，菩提夜菩提夜，菩馱夜菩馱夜，彌帝唎夜，那囉謹墀，地利瑟尼那，波夜摩那，娑婆訶，悉陀夜，娑婆訶，摩訶悉陀夜，娑婆訶，悉陀喻藝，室皤囉耶，娑婆訶，那囉謹墀，娑婆訶，摩囉那囉，娑婆訶，悉囉僧阿穆佉耶，娑婆訶，娑婆摩訶阿悉陀夜，娑婆訶，者吉囉阿悉陀夜，娑婆訶，波陀摩羯悉陀夜，娑婆訶，那囉謹墀皤伽囉耶，娑婆訶，摩婆利勝羯囉夜，娑婆訶，南無喝囉怛那哆囉夜耶，南無阿唎耶，婆盧吉帝，爍皤囉夜，娑婆訶，唵悉殿都，漫多囉，跋陀耶，娑婆訶。"},
+ {id:"amituo",title:"佛說阿彌陀經（序分）",short:"阿彌陀經",translator:"姚秦三藏法師鳩摩羅什 譯 · 節選",cat:"long",level:"進階",
+  desc:"極樂世界序分：從是西方，過十萬億佛土，有世界名曰極樂。",
+  text:"如是我聞。一時佛在舍衛國，行樹給孤獨園。與大比丘僧，千二百五十人俱。皆是大阿羅漢，眾所知識。長老舍利弗，摩訶目犍連，摩訶迦葉，摩訶迦旃延，摩訶俱絺羅，離婆多，周利槃陀伽，難陀，阿難陀，羅睺羅，憍梵波提，賓頭盧頗羅墮，迦留陀夷，摩訶劫賓那，薄拘羅，阿㝹樓馱，如是等諸大弟子。爾時佛告長老舍利弗：從是西方，過十萬億佛土，有世界名曰極樂。其土有佛，號阿彌陀，今現在說法。舍利弗！彼土何故名為極樂？其國眾生，無有眾苦，但受諸樂，故名極樂。"},
+ {id:"chanhui",title:"開經偈 · 懺悔文 · 回向偈",short:"懺悔回向",translator:"課誦短篇",cat:"short",level:"每日課誦",
+  desc:"開經、懺悔、回向三段短篇，抄經前後各誦一遍，最合日常功課。",
+  text:"無上甚深微妙法，百千萬劫難遭遇，我今見聞得受持，願解如來真實義。\n往昔所造諸惡業，皆由無始貪瞋癡，從身語意之所生，一切我今皆懺悔。\n願以此功德，莊嚴佛淨土，上報四重恩，下濟三途苦，若有見聞者，悉發菩提心，盡此一報身，同生極樂國。"},
+ {id:"fohao",title:"南無阿彌陀佛",short:"佛號",translator:"持名 · 可調遍數",cat:"chant",level:"持名",
+  desc:"六字洪名，一聲一念。遍數可在「設置」頁調整，預設一遍。",
+  text:"南無阿彌陀佛",baseRepeat:true},
+ {id:"liuziming",title:"六字大明咒",short:"六字大明咒",translator:"持誦本 · 六字真言",cat:"chant",level:"持誦",
+  desc:"唵嘛呢叭咪吽，六字真言，初學最易上手的持誦短篇。",
+  text:"唵嘛呢叭咪吽"},
+ {id:"dizang",title:"地藏菩薩本願經（節選·卷首）",short:"地藏經",translator:"唐·實叉難陀 譯 · 節選",cat:"long",level:"進階",
+  desc:"忉利天宮集會卷首，節選。各刊本文字略有出入。",
+  text:"如是我聞：一時佛在忉利天，為母說法。爾時十方無量世界，不可說不可說一切諸佛，及大菩薩摩訶薩，皆來集會。讚歎釋迦牟尼佛，能於五濁惡世，現不可思議大智慧神通之力，調伏剛強眾生，知苦樂法。各遣侍者，問訊世尊。"},
+ {id:"yaoshi",title:"藥師琉璃光如來本願功德經（節選·卷首）",short:"藥師經",translator:"唐三藏法師玄奘 譯 · 節選",cat:"long",level:"進階",
+  desc:"廣嚴城樂音樹下卷首，節選。各刊本文字略有出入。",
+  text:"如是我聞：一時薄伽梵，遊化諸國，至廣嚴城，住樂音樹下，與大苾芻眾八千人俱，菩薩摩訶薩三萬六千，及國王、大臣、婆羅門、居士，天龍八部，人非人等，無量大眾，恭敬圍繞，而為說法。"}
+];
+function charsOf(t){return (t||"").replace(/[^\u3400-\u9FFF\uF900-\uFAFF]/g,"").split("");}
+SUTRAS.forEach(function(s){s.chars=charsOf(s.text);});
+var REPEATS=1;
+function currentChars(s){ if(s.baseRepeat){ var out=[]; for(var i=0;i<REPEATS;i++) out=out.concat(s.chars); return out; } return s.chars; }
+
+/* ---------- 狀態（僅本次開啟，存於記憶體） ---------- */
+var state={sutra:SUTRAS[0],idx:0,mode:"write",done:{},typed:{},strokes:{},started:false,elapsed:0,timerOn:false,timerId:null,ink:"#1f2b28",brush:7,fade:26,grid:"tian",font:"serif",paper:"xuan"};
+var session={chars:0,completed:[],chants:0,sitMinutes:0,lastWork:null};
+var mala={count:0,rounds:0,goal:108,chant:"南無阿彌陀佛",total:0};
+var sit={mins:10,left:600,running:false,id:null,phase:"idle",phaseId:null,done:0};
+var favs={}, progressStore={}, homeFilter="all", dailyGoal=260;
+function doneCountFor(id){
+  if(state.sutra&&state.sutra.id===id)return Object.keys(state.done).length;
+  var p=progressStore[id];return p?Object.keys(p.done).length:0;
+}
+function saveProgress(){
+  if(!state.sutra)return;
+  progressStore[state.sutra.id]={idx:state.idx,done:state.done,typed:state.typed,strokes:state.strokes,elapsed:state.elapsed,started:state.started};
+}
+function loadProgress(id){
+  var p=progressStore[id];
+  if(p){state.idx=p.idx;state.done=p.done;state.typed=p.typed;state.strokes=p.strokes;state.elapsed=p.elapsed;state.started=p.started;state.timerOn=false;}
+  else{state.idx=0;state.done={};state.typed={};state.strokes={};state.started=false;state.elapsed=0;state.timerOn=false;}
+}
+function estMinutes(n){return Math.max(1,Math.round(n/37));}
+
+function fmtTime(s){var m=Math.floor(s/60),r=s%60;return (m<10?"0":"")+m+":"+(r<10?"0":"")+r;}
+function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._id);t._id=setTimeout(function(){t.classList.remove("show");},2400);}
+
+/* ---------- 日期 ---------- */
+(function(){var d=new Date();var w=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"][d.getDay()];$("todayLabel").textContent=d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 · "+w;})();
+
+/* ---------- 主題 ---------- */
+function applyTheme(){var dark=document.documentElement.getAttribute("data-theme")==="dark";$("themeBtn").setAttribute("aria-pressed",dark?"true":"false");$("themeBtn").textContent=dark?"淺色模式":"深夜模式";}
+if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");}
+applyTheme();
+$("themeBtn").addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme");document.documentElement.setAttribute("data-theme",cur==="dark"?"light":"dark");applyTheme();});
+
+/* ---------- 頁籤 ---------- */
+function setHomeSeg(which){
+  $("homeSegCopy").setAttribute("aria-pressed",which==="copy"?"true":"false");
+  $("homeSegRead").setAttribute("aria-pressed",which==="read"?"true":"false");
+  $("homeSegArticle").setAttribute("aria-pressed",which==="article"?"true":"false");
+}
+function switchTab(name){
+  stopFishAuto();
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
+  var map={home:"panel-home",stats:"panel-stats",done:"panel-done",practice:"panel-practice",settings:"panel-settings",read:"panel-read",library:"panel-library"};
+  var el=$(map[name]||("panel-"+name));if(el)el.classList.add("active");
+  document.querySelectorAll(".navbtn").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-tab")===name?"true":"false");});
+  if(name==="home"){setHomeSeg("copy");resizeCanvas();drawAll();}
+  if(name==="read"){setHomeSeg("read");updateReadProgress();}
+  if(name==="library"){setHomeSeg("article");}
+  if(name==="stats")renderStats();
+  if(name==="done"){renderRecords();renderFavs();}
+  if(name==="practice")updatePracticeHome();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".navbtn").forEach(function(b){b.addEventListener("click",function(){switchTab(b.getAttribute("data-tab"));});});
+$("heroContinue").addEventListener("click",function(){switchTab("home");setTimeout(function(){$("copyWorkspace").scrollIntoView({behavior:"smooth",block:"start"});},80);});
+
+/* ---------- 文庫 ---------- */
+/* ---------- 首頁經文列 · 收藏 ---------- */
+function sutraRow(s,mode){
+  var n=currentChars(s).length;
+  var row=document.createElement("div");row.className="sutra-row"+(state.sutra&&state.sutra.id===s.id?" active":"");
+  var main=document.createElement("button");main.type="button";main.className="main";main.style.cssText="flex:1;min-width:0;border:0;background:transparent;text-align:left;padding:0";
+  var done=doneCountFor(s.id);
+  main.innerHTML='<h3>'+s.title+'</h3><p>'+s.translator+' · '+n+' 字 · 約 '+estMinutes(n)+' 分鐘 · 已抄 '+done+' 字</p>';
+  main.addEventListener("click",function(){
+    selectSutra(s.id);
+    if(mode==="read"){switchTab("read");setTimeout(function(){$("readerPaper").scrollIntoView({behavior:"smooth",block:"start"});},80);}
+    else{switchTab("home");setTimeout(function(){$("copyWorkspace").scrollIntoView({behavior:"smooth",block:"start"});},80);}
+  });
+  var star=document.createElement("button");star.type="button";star.className="star"+(favs[s.id]?" fav":"");star.textContent=favs[s.id]?"★":"☆";star.setAttribute("aria-label",(favs[s.id]?"取消收藏 ":"收藏 ")+s.title);star.setAttribute("aria-pressed",favs[s.id]?"true":"false");
+  star.addEventListener("click",function(){toggleFav(s.id);});
+  var readBtn=document.createElement("button");readBtn.type="button";readBtn.className="row-read";readBtn.textContent="讀";
+  readBtn.addEventListener("click",function(){selectSutra(s.id);switchTab("read");setTimeout(function(){$("readerPaper").scrollIntoView({behavior:"smooth",block:"start"});},80);});
+  row.appendChild(main);row.appendChild(star);row.appendChild(readBtn);
+  return row;
+}
+function renderHomeList(filter){
+  homeFilter=filter||homeFilter;
+  var list=$("homeSutraList");if(!list)return;list.innerHTML="";
+  var shown=SUTRAS.filter(function(s){
+    if(homeFilter==="fav")return !!favs[s.id];
+    if(homeFilter==="short")return s.cat==="short";
+    if(homeFilter==="long")return s.cat==="long";
+    if(homeFilter==="chant")return s.cat==="chant";
+    return true;
+  });
+  if(!shown.length){list.innerHTML='<div class="empty">這裡還沒有內容。先去收藏幾部經，再回來看。</div>';return;}
+  shown.forEach(function(s){list.appendChild(sutraRow(s,"copy"));});
+}
+function renderReadList(){
+  var list=$("readList");if(!list)return;list.innerHTML="";
+  SUTRAS.forEach(function(s){list.appendChild(sutraRow(s,"read"));});
+  var note=document.createElement("div");note.className="sutra-row";
+  note.innerHTML='<div class="main" style="flex:1;min-width:0"><h3>大乘離文字普光明藏經</h3><p>全文較長 · 本版收錄導讀一篇，見「文章」</p></div>';
+  var go=document.createElement("button");go.type="button";go.className="row-read";go.textContent="看導讀";
+  go.addEventListener("click",function(){openArticle("lichu");});
+  note.appendChild(go);list.appendChild(note);
+}
+function toggleFav(id){
+  if(favs[id]){delete favs[id];toast("已取消收藏。");}
+  else{favs[id]=true;toast("已收藏，可到「已完成」頁查看。");}
+  renderHomeList();renderReadList();renderFavs();
+}
+function renderFavs(){
+  var list=$("favList");if(!list)return;
+  var ids=Object.keys(favs);
+  $("favCountLabel").textContent=ids.length?("共 "+ids.length+" 部"):"";
+  if(!ids.length){list.innerHTML='<div class="empty">還沒有收藏。回到首頁或讀經頁，點經文旁的星號即可收藏。</div>';return;}
+  list.innerHTML="";
+  SUTRAS.filter(function(s){return favs[s.id];}).forEach(function(s){
+    var row=document.createElement("div");row.className="fav-row";
+    var n=currentChars(s).length;
+    row.innerHTML='<div><h3 style="font-size:15px">'+s.title+'</h3><p class="muted" style="margin:2px 0 0">'+n+' 字 · 已抄 '+doneCountFor(s.id)+' 字</p></div>';
+    var acts=document.createElement("div");acts.style.display="flex";acts.style.gap="8px";
+    var b1=document.createElement("button");b1.className="btn small";b1.type="button";b1.textContent="去抄寫";
+    b1.addEventListener("click",function(){selectSutra(s.id);switchTab("home");});
+    var b2=document.createElement("button");b2.className="btn ghost small";b2.type="button";b2.textContent="取消收藏";
+    b2.addEventListener("click",function(){toggleFav(s.id);});
+    acts.appendChild(b1);acts.appendChild(b2);row.appendChild(acts);list.appendChild(row);
+  });
+}
+document.querySelectorAll("#homeFilters .chip").forEach(function(c){c.addEventListener("click",function(){
+  document.querySelectorAll("#homeFilters .chip").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  c.setAttribute("aria-pressed","true");renderHomeList(c.getAttribute("data-filter"));
+});});
+document.querySelectorAll("[data-rec]").forEach(function(b){b.addEventListener("click",function(){
+  selectSutra(b.getAttribute("data-rec"));switchTab("home");
+  setTimeout(function(){$("copyWorkspace").scrollIntoView({behavior:"smooth",block:"start"});},80);
+});});
+
+function selectSutra(id){
+  saveProgress();
+  var s=SUTRAS.filter(function(x){return x.id===id;})[0]||SUTRAS[0];
+  state.sutra=s;loadProgress(s.id);
+  stopTimer();$("elapsedLabel").textContent=fmtTime(state.elapsed);$("pauseTimerBtn").textContent="暫停計時";
+  $("sutraMiniTitle").textContent=s.short;
+  $("heroTitle").textContent=s.title;
+  var n=currentChars(s).length;
+  $("heroSub").textContent="全文"+n+"字 · 先靜心，再下筆，一字一念。";
+  $("readMeta").textContent=s.short+" · "+(s.baseRepeat?"持名":"全文");
+  buildCharGrid();updateProgress();setCurrentChar();renderHomeList();renderReadList();
+  renderReader();
+}
+function stopTimer(){if(state.timerId){clearInterval(state.timerId);state.timerId=null;}}
+function startTimer(){if(state.timerId)return;state.timerOn=true;state.timerId=setInterval(function(){if(!state.timerOn)return;state.elapsed++;$("elapsedLabel").textContent=fmtTime(state.elapsed);updateHeroTime();},1000);}
+$("pauseTimerBtn").addEventListener("click",function(){
+  if(!state.started){toast("先寫下第一筆，計時便開始。");return;}
+  state.timerOn=!state.timerOn;
+  $("pauseTimerBtn").textContent=state.timerOn?"暫停計時":"繼續計時";
+  if(state.timerOn)startTimer();
+});
+function updateHeroTime(){$("heroTimeText").textContent=state.started?("已用時 "+fmtTime(state.elapsed)):"尚未開始計時";}
+
+/* ---------- 全文對照 ---------- */
+function buildCharGrid(){
+  var g=$("charGrid");g.innerHTML="";
+  currentChars(state.sutra).forEach(function(ch,i){
+    var c=document.createElement("button");c.type="button";c.className="char-cell";c.setAttribute("role","option");
+    c.textContent=ch;c.setAttribute("aria-label","第 "+(i+1)+" 字 "+ch);
+    c.addEventListener("click",function(){saveCurrent();state.idx=i;setCurrentChar();});
+    g.appendChild(c);
+  });
+  refreshGridMarks();
+}
+function refreshGridMarks(){
+  var cells=$("charGrid").children;
+  for(var i=0;i<cells.length;i++){
+    cells[i].classList.toggle("done",!!state.done[i]);
+    cells[i].classList.toggle("current",i===state.idx);
+    if(state.done[i]&&!cells[i].querySelector(".dot")){var d=document.createElement("span");d.className="dot";cells[i].appendChild(d);}
+    if(!state.done[i]){var dot=cells[i].querySelector(".dot");if(dot)dot.remove();}
+  }
+}
+
+/* ---------- 寫字板 ---------- */
+var canvas=$("writeCanvas"),ctx=canvas.getContext("2d");
+var drawing=false,currentStroke=[],strokes=[];
+function canvasSize(){var r=canvas.getBoundingClientRect();return r.width||430;}
+function resizeCanvas(){
+  var dpr=window.devicePixelRatio||1;var size=860;
+  canvas.width=size;canvas.height=size;
+  ctx.setTransform(1,0,0,1,0,0);
+  drawAll();
+}
+function gridColor(){return document.documentElement.getAttribute("data-theme")==="dark"?"rgba(147,201,182,.45)":"rgba(47,107,94,.42)";}
+function drawGrid(){
+  var W=860,pad=46,inner=W-pad*2;
+  ctx.save();ctx.strokeStyle=gridColor();ctx.lineWidth=2;
+  ctx.strokeRect(pad,pad,inner,inner);
+  ctx.lineWidth=1;
+  ctx.strokeRect(pad+7,pad+7,inner-14,inner-14);
+  if(state.grid==="none"){ctx.restore();return;}
+  var cx=W/2,cy=W/2;
+  ctx.beginPath();
+  ctx.moveTo(cx,pad);ctx.lineTo(cx,W-pad);ctx.moveTo(pad,cy);ctx.lineTo(W-pad,cy);
+  if(state.grid==="mi"||state.grid==="jiu"){
+    ctx.moveTo(pad,pad);ctx.lineTo(W-pad,W-pad);ctx.moveTo(W-pad,pad);ctx.lineTo(pad,W-pad);
+  }
+  if(state.grid==="jiu"){
+    var t=inner/3;
+    ctx.moveTo(pad+t,pad);ctx.lineTo(pad+t,W-pad);ctx.moveTo(pad+2*t,pad);ctx.lineTo(pad+2*t,W-pad);
+    ctx.moveTo(pad,pad+t);ctx.lineTo(W-pad,pad+t);ctx.moveTo(pad,pad+2*t);ctx.lineTo(W-pad,pad+2*t);
+  }
+  ctx.stroke();ctx.restore();
+}
+function modelFontName(){return state.font==="kai"?'"Kaiti TC","STKaiti","KaiTi","Noto Serif TC",serif':'"Noto Serif TC",serif';}
+function drawModel(){
+  var ch=currentChars(state.sutra)[state.idx];if(!ch)return;
+  ctx.save();
+  ctx.font='600 520px '+modelFontName();
+  ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.fillStyle=document.documentElement.getAttribute("data-theme")==="dark"?"rgba(180,220,205,ALPHA)":"rgba(191,90,54,ALPHA)".replace("ALPHA",(state.fade/100).toFixed(2));
+  if(document.documentElement.getAttribute("data-theme")==="dark"){ctx.fillStyle="rgba(180,220,205,"+(state.fade/100).toFixed(2)+")";}
+  ctx.fillText(ch,430,452);
+  ctx.restore();
+}
+function drawStrokes(){
+  ctx.save();ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle=state.ink;ctx.fillStyle=state.ink;ctx.lineWidth=state.brush*2.4;
+  strokes.forEach(function(st){
+    if(st.length===1){ctx.beginPath();ctx.arc(st[0][0]*860,st[0][1]*860,state.brush*1.2,0,Math.PI*2);ctx.fill();return;}
+    if(st.length<2)return;
+    ctx.beginPath();ctx.moveTo(st[0][0]*860,st[0][1]*860);
+    for(var i=1;i<st.length-1;i++){var mx=(st[i][0]+st[i+1][0])/2*860,my=(st[i][1]+st[i+1][1])/2*860;ctx.quadraticCurveTo(st[i][0]*860,st[i][1]*860,mx,my);}
+    ctx.lineTo(st[st.length-1][0]*860,st[st.length-1][1]*860);ctx.stroke();
+  });
+  ctx.restore();
+}
+function drawAll(){
+  ctx.clearRect(0,0,860,860);
+  drawGrid();drawModel();drawStrokes();
+  if(state.mode==="type"){
+    var typed=state.typed[state.idx];
+    if(typed){ctx.save();ctx.font='700 520px '+modelFontName();ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle=state.ink;ctx.globalAlpha=.92;ctx.fillText(typed,430,452);ctx.restore();}
+  }
+}
+function pointFromEvent(e){
+  var r=canvas.getBoundingClientRect();
+  return [(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height];
+}
+canvas.addEventListener("pointerdown",function(e){
+  if(state.mode!=="write")return;
+  e.preventDefault();canvas.setPointerCapture(e.pointerId);
+  drawing=true;currentStroke=[pointFromEvent(e)];
+  if(!state.started){state.started=true;startTimer();updateHeroTime();}
+});
+canvas.addEventListener("pointermove",function(e){
+  if(!drawing)return;e.preventDefault();
+  currentStroke.push(pointFromEvent(e));
+  ctx.save();ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle=state.ink;ctx.lineWidth=state.brush*2.4;
+  var n=currentStroke.length;
+  if(n>=2){ctx.beginPath();var a=currentStroke[n-2],b=currentStroke[n-1];ctx.moveTo(a[0]*860,a[1]*860);ctx.lineTo(b[0]*860,b[1]*860);ctx.stroke();}
+  ctx.restore();
+});
+function endStroke(e){
+  if(!drawing)return;drawing=false;
+  if(currentStroke.length>=1)strokes.push(currentStroke.slice());
+  currentStroke=[];
+}
+canvas.addEventListener("pointerup",endStroke);
+canvas.addEventListener("pointercancel",endStroke);
+canvas.addEventListener("pointerleave",function(){if(drawing)endStroke();});
+
+function saveCurrent(){
+  if(state.mode==="write"){state.strokes[state.idx]=strokes.map(function(s){return s.slice();});}
+}
+function loadCurrent(){
+  strokes=(state.strokes[state.idx]||[]).map(function(s){return s.slice();});
+  drawAll();
+}
+function setCurrentChar(){
+  var chars=currentChars(state.sutra);
+  var ch=chars[state.idx];if(!ch)return;
+  $("charPos").textContent=state.idx+1;$("charTotal").textContent=chars.length;
+  $("ctxPos").textContent=state.idx+1;$("currentCharLabel").textContent=ch;$("bigChar").textContent=ch;
+  var sent=sentenceAround(state.idx);
+  $("ctxSentence").innerHTML=sent;
+  $("charPinyinLabel").textContent=state.mode==="write"?"描紅字":"鍵入字";
+  loadCurrent();refreshGridMarks();updateProgress();saveProgress();
+  var inp=$("typeInput");inp.value="";inp.placeholder="鍵入「"+ch+"」";
+}
+function sentenceAround(idx){
+  var chars=currentChars(state.sutra);
+  var start=Math.max(0,idx-6),end=Math.min(chars.length,idx+7);
+  var out="";
+  for(var i=start;i<end;i++){
+    if(i===idx)out+='<span class="cur">'+chars[i]+'</span>';
+    else out+=chars[i];
+  }
+  return (start>0?"……":"")+out+(end<chars.length?"……":"");
+}
+function markDone(){
+  var chars=currentChars(state.sutra);
+  if(state.mode==="write"&&strokes.length===0){toast("這一字還沒有落筆，先寫一筆再完成。");return false;}
+  if(state.mode==="type"&&!state.typed[state.idx]){toast("先在輸入框鍵入此字。");return false;}
+  saveCurrent();
+  if(!state.done[state.idx]){state.done[state.idx]=true;session.chars++;}
+  return true;
+}
+function completeChar(auto){
+  if(!markDone())return;
+  var chars=currentChars(state.sutra);
+  if(state.idx>=chars.length-1){finishSutra();return;}
+  state.idx++;setCurrentChar();
+  if(state.mode==="type")$("typeInput").focus();
+}
+$("nextBtn").addEventListener("click",function(){completeChar(false);});
+$("prevBtn").addEventListener("click",function(){
+  saveCurrent();
+  if(state.idx>0){state.idx--;setCurrentChar();}
+});
+$("undoBtn").addEventListener("click",function(){strokes.pop();drawAll();});
+$("clearBtn").addEventListener("click",function(){strokes=[];if(state.mode==="type")delete state.typed[state.idx];drawAll();});
+$("restartBtn").addEventListener("click",function(){
+  delete progressStore[state.sutra.id];
+  state.idx=0;state.done={};state.typed={};state.strokes={};state.started=false;state.elapsed=0;state.timerOn=false;stopTimer();
+  $("elapsedLabel").textContent="00:00";$("pauseTimerBtn").textContent="暫停計時";updateHeroTime();
+  buildCharGrid();setCurrentChar();toast("已重新開始，靜心再寫。");
+});
+$("brushSize").addEventListener("input",function(){state.brush=parseInt(this.value,10);$("brushSizeVal").textContent=this.value;drawAll();});
+$("fadeRange").addEventListener("input",function(){state.fade=parseInt(this.value,10);drawAll();});
+document.querySelectorAll(".swatch").forEach(function(sw){sw.addEventListener("click",function(){
+  document.querySelectorAll(".swatch").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  sw.setAttribute("aria-pressed","true");state.ink=sw.getAttribute("data-ink");drawAll();
+});});
+$("gridStyle").addEventListener("change",function(){state.grid=this.value;$("setGrid").value=this.value;drawAll();});
+$("modelFont").addEventListener("change",function(){state.font=this.value;$("setFont").value=this.value;drawAll();});
+$("autoNext").addEventListener("change",function(){/* 僅開關，鍵入時即用 */});
+
+function setMode(m){
+  state.mode=m;
+  $("modeWrite").setAttribute("aria-pressed",m==="write"?"true":"false");
+  $("modeType").setAttribute("aria-pressed",m==="type"?"true":"false");
+  $("paperStage").classList.toggle("typing",m==="type");
+  $("typeRow").hidden=m!=="type";
+  $("brushRow").style.display=m==="write"?"flex":"none";
+  if(m==="type"){saveCurrent();setCurrentChar();$("typeInput").focus();}
+  else{drawAll();}
+}
+$("modeWrite").addEventListener("click",function(){setMode("write");});
+$("modeType").addEventListener("click",function(){setMode("type");});
+function confirmType(){
+  var v=$("typeInput").value.trim();if(!v)return;
+  var want=currentChars(state.sutra)[state.idx];
+  var got=v.charAt(v.length-1);
+  if(got!==want){toast("此字應為「"+want+"」，請再試一次。");$("typeInput").value="";return;}
+  state.typed[state.idx]=got;
+  if(!state.started){state.started=true;startTimer();updateHeroTime();}
+  drawAll();
+  if($("autoNext").checked){completeChar(true);}
+  else{toast("已落筆「"+got+"」，點「此字完成」繼續。");}
+  $("typeInput").value="";
+}
+$("typeConfirm").addEventListener("click",confirmType);
+$("typeInput").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();confirmType();}});
+$("typeInput").addEventListener("input",function(){
+  var v=this.value.trim();
+  if(v&&v.charAt(v.length-1)===currentChars(state.sutra)[state.idx])confirmType();
+});
+
+/* 紙張 */
+function setPaper(p){
+  state.paper=p;$("paperStage").setAttribute("data-paper",p);$("setPaper").value=p;
+  document.querySelectorAll("[data-paperbtn]").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-paperbtn")===p?"true":"false");});
+}
+document.querySelectorAll("[data-paperbtn]").forEach(function(b){b.addEventListener("click",function(){setPaper(b.getAttribute("data-paperbtn"));});});
+$("setPaper").addEventListener("change",function(){setPaper(this.value);});
+$("setGrid").addEventListener("change",function(){state.grid=this.value;$("gridStyle").value=this.value;drawAll();});
+$("setFont").addEventListener("change",function(){state.font=this.value;$("modelFont").value=this.value;drawAll();});
+$("setRepeats").addEventListener("change",function(){
+  REPEATS=parseInt(this.value,10);
+  if(state.sutra.baseRepeat){selectSutra("fohao");}
+  toast("佛號遍數已設為 "+REPEATS+" 遍。");
+});
+$("hideVerse").addEventListener("click",function(){$("openingVerse").style.display="none";resizeCanvas();});
+
+function updateProgress(){
+  var chars=currentChars(state.sutra);
+  var done=Object.keys(state.done).length;
+  var pct=chars.length?Math.round(done/chars.length*100):0;
+  $("ringPct").textContent=pct+"%";
+  $("ringArc").style.strokeDashoffset=(163.36*(1-pct/100)).toFixed(2);
+  $("heroProgressText").textContent="已抄 "+done+" / "+chars.length+" 字";
+  $("statDone").textContent=done;$("statLeft").textContent=chars.length-done;
+  var rate=state.elapsed>10?Math.round(done/(state.elapsed/60)):null;
+  $("statRate").textContent=rate?rate:"—";
+  $("todayChars").textContent=session.chars+" 字";
+  $("todaySub").textContent="念珠 "+mala.total+" 聲 · 靜坐 "+session.sitMinutes+" 分鐘";
+  var badge=$("doneBadge");badge.hidden=session.completed.length===0;badge.textContent=session.completed.length;
+  $("recChars").textContent=session.chars;$("recDone").textContent=session.completed.length;
+  $("recChants").textContent=mala.total;$("recSit").textContent=session.sitMinutes+" 分";
+  var ht=$("homeTotalChars");if(ht)ht.textContent=session.chars+" 字";
+  var ds=$("dailySummary");if(ds)ds.textContent="抄字 "+session.chars+" · 念佛 "+mala.total+" 聲 · 靜坐 "+session.sitMinutes+" 分鐘 · 圓滿 "+session.completed.length+" 部";
+  var gl=$("goalLabel");if(gl)gl.textContent="已抄 "+session.chars+" / "+dailyGoal+" 字";
+  var gb=$("goalBar");if(gb)gb.style.width=Math.min(100,Math.round(session.chars/dailyGoal*100))+"%";
+}
+
+/* ---------- 完成與匯出 ---------- */
+function finishSutra(){
+  var chars=currentChars(state.sutra);
+  var rec={title:state.sutra.title,short:state.sutra.short,chars:chars.length,seconds:state.elapsed,time:new Date(),sutraId:state.sutra.id,done:Object.assign({},state.done),typed:Object.assign({},state.typed),strokes:JSON.parse(JSON.stringify(state.strokes)),ink:state.ink};
+  session.completed.push(rec);session.lastWork=rec;
+  stopTimer();
+  $("doneTitle").textContent="「"+state.sutra.short+"」抄寫圓滿";
+  $("doneMeta").textContent=state.sutra.title+" · "+chars.length+" 字 · 用時 "+fmtTime(state.elapsed);
+  $("doneOverlay").classList.add("open");
+  renderRecords();updateProgress();
+}
+$("closeDoneBtn").addEventListener("click",function(){$("doneOverlay").classList.remove("open");switchTab("home");});
+$("againBtn").addEventListener("click",function(){$("doneOverlay").classList.remove("open");$("restartBtn").click();});
+$("doneOverlay").addEventListener("click",function(e){if(e.target===$("doneOverlay"))$("doneOverlay").classList.remove("open");});
+
+function downloadBlob(blob,name){
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},800);
+}
+function exportText(rec){
+  var s=SUTRAS.filter(function(x){return x.id===rec.sutraId;})[0];
+  var chars=currentChars(s);
+  var txt=s.title+"\n"+s.translator+"\n\n"+chars.join("")+"\n\n—— 抄寫於 "+rec.time.getFullYear()+"年"+(rec.time.getMonth()+1)+"月"+rec.time.getDate()+"日，用時 "+fmtTime(rec.seconds)+"。\n願以此功德，莊嚴佛淨土，上報四重恩，下濟三途苦。\n";
+  downloadBlob(new Blob([txt],{type:"text/plain;charset=utf-8"}),rec.short+"_抄經.txt");
+  toast("抄經文已下載。");
+}
+$("dlTextBtn").addEventListener("click",function(){if(session.lastWork)exportText(session.lastWork);});
+
+function renderWorkImage(rec,done){
+  var s=SUTRAS.filter(function(x){return x.id===rec.sutraId;})[0];
+  var chars=currentChars(s);
+  var W=1240,cols=8,cell=128,gap=14,padX=72,padTop=210;
+  var rows=Math.ceil(chars.length/cols);
+  var H=padTop+rows*(cell+gap)+150;
+  var c=document.createElement("canvas");c.width=W;c.height=H;var g=c.getContext("2d");
+  g.fillStyle="#f0f5f2";g.fillRect(0,0,W,H);
+  g.strokeStyle="#7fb8a3";g.lineWidth=2;g.strokeRect(22,22,W-44,H-44);
+  g.fillStyle="#1e4d44";g.textAlign="center";
+  g.font="700 52px 'Noto Serif TC',serif";g.fillText(s.title, W/2, 108);
+  g.font="400 24px 'Noto Sans TC',sans-serif";g.fillStyle="#7a8a82";
+  g.fillText(s.translator+"  ·  抄寫 "+chars.length+" 字", W/2, 152);
+  for(var i=0;i<chars.length;i++){
+    var r=Math.floor(i/cols),col=i%cols;
+    var x=padX+col*(cell+gap),y=padTop+r*(cell+gap);
+    g.strokeStyle="rgba(47,107,94,.4)";g.lineWidth=1.5;g.strokeRect(x,y,cell,cell);
+    g.beginPath();g.moveTo(x+cell/2,y);g.lineTo(x+cell/2,y+cell);g.moveTo(x,y+cell/2);g.lineTo(x+cell,y+cell/2);g.stroke();
+    var st=rec.strokes[i];
+    if(st&&st.length){
+      g.save();g.strokeStyle=rec.ink||"#1f2b28";g.lineWidth=7;g.lineCap="round";g.lineJoin="round";
+      st.forEach(function(s2){if(s2.length<2)return;g.beginPath();g.moveTo(x+s2[0][0]*cell,y+s2[0][1]*cell);for(var k=1;k<s2.length;k++)g.lineTo(x+s2[k][0]*cell,y+s2[k][1]*cell);g.stroke();});
+      g.restore();
+    }else if(rec.typed[i]){
+      g.fillStyle=rec.ink||"#1f2b28";g.font="700 84px 'Noto Serif TC',serif";g.textAlign="center";g.textBaseline="middle";g.fillText(rec.typed[i],x+cell/2,y+cell/2+4);
+    }else{
+      g.fillStyle="#7a8a82";g.font="600 84px 'Noto Serif TC',serif";g.textAlign="center";g.textBaseline="middle";g.fillText(chars[i],x+cell/2,y+cell/2+4);
+    }
+  }
+  g.fillStyle="#7a8a82";g.font="400 24px 'Noto Sans TC',sans-serif";g.textAlign="center";
+  var d=rec.time;
+  g.fillText("抄寫於 "+d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日  ·  用時 "+fmtTime(rec.seconds)+"  ·  願以此功德 莊嚴佛淨土", W/2, H-58);
+  done(c);
+}
+$("dlImageBtn").addEventListener("click",function(){
+  if(!session.lastWork)return;
+  renderWorkImage(session.lastWork,function(c){
+    c.toBlob(function(b){downloadBlob(b,"抄經作品_"+session.lastWork.short+".png");toast("作品圖已下載。");},"image/png");
+  });
+});
+
+/* ---------- 記錄 ---------- */
+function renderRecords(){
+  var list=$("recordList");
+  $("recCountLabel").textContent=session.completed.length?("共 "+session.completed.length+" 部"):"";
+  if(!session.completed.length){list.innerHTML='<div class="empty">還沒有完成的抄經。寫滿一部經，這裡會出現記錄，並可下載作品圖。</div>';return;}
+  list.innerHTML="";
+  session.completed.slice().reverse().forEach(function(rec,ri){
+    var idx=session.completed.length-1-ri;
+    var row=document.createElement("div");row.className="record-item";
+    var d=rec.time;
+    row.innerHTML='<div><h3>'+rec.title+'</h3><p>'+d.getMonth()+1+"月"+d.getDate()+"日 "+(d.getHours()<10?"0":"")+d.getHours()+":"+(d.getMinutes()<10?"0":"")+d.getMinutes()+" · "+rec.chars+" 字 · 用時 "+fmtTime(rec.seconds)+'</p></div>';
+    var acts=document.createElement("div");acts.style.display="flex";acts.style.gap="8px";
+    var b1=document.createElement("button");b1.className="btn small";b1.type="button";b1.textContent="下載作品圖";
+    b1.addEventListener("click",function(){renderWorkImage(rec,function(c){c.toBlob(function(b){downloadBlob(b,"抄經作品_"+rec.short+".png");},"image/png");});});
+    var b2=document.createElement("button");b2.className="btn ghost small";b2.type="button";b2.textContent="下載抄經文";
+    b2.addEventListener("click",function(){exportText(rec);});
+    var b3=document.createElement("button");b3.className="btn ghost small";b3.type="button";b3.textContent="刪除";
+    b3.addEventListener("click",function(){session.completed.splice(idx,1);renderRecords();updateProgress();toast("已刪除此條記錄。");});
+    acts.appendChild(b1);acts.appendChild(b2);acts.appendChild(b3);row.appendChild(acts);list.appendChild(row);
+  });
+}
+
+/* ---------- 讀經 ---------- */
+function renderReader(){
+  var s=state.sutra;
+  $("readerTitle").textContent=s.title;$("readerSub").textContent=s.translator;
+  var rh=$("readerHeading");if(rh)rh.textContent="正在讀 · "+s.short;
+  var txt=$("readerText");
+  var paras=s.text.split("\n").filter(function(p){return p.trim();});
+  txt.innerHTML=paras.map(function(p){return "<p>"+p.replace(/</g,"&lt;")+"</p>";}).join("");
+  updateReadProgress();
+}
+/* 讀經列表見 renderReadList（首頁經文列段落） */
+$("fontSize").addEventListener("input",function(){$("readerText").style.fontSize=this.value+"px";$("fontSizeVal").textContent=this.value;});
+$("lineGap").addEventListener("input",function(){$("readerText").style.lineHeight=this.value;});
+function setDir(v){
+  $("dirH").setAttribute("aria-pressed",v==="h"?"true":"false");
+  $("dirV").setAttribute("aria-pressed",v==="v"?"true":"false");
+  $("readerPaper").classList.toggle("vertical",v==="v");
+}
+$("dirH").addEventListener("click",function(){setDir("h");});
+$("dirV").addEventListener("click",function(){setDir("v");});
+$("readTopBtn").addEventListener("click",function(){$("readerPaper").scrollIntoView({behavior:"smooth",block:"start"});updateReadProgress();});
+function updateReadProgress(){
+  var el=$("readerPaper");if(!el)return;
+  var pct=0;
+  if(el.classList.contains("vertical")){pct=Math.round((el.scrollLeft/Math.max(1,el.scrollWidth-el.clientWidth))*100)||0;}
+  else{var r=el.getBoundingClientRect();var total=el.scrollHeight-window.innerHeight;var scrolled=Math.min(Math.max(0,window.scrollY-r.top+200),Math.max(1,el.scrollHeight));pct=Math.round(Math.min(100,scrolled/Math.max(1,el.scrollHeight)*100));}
+  $("readProgress").textContent="已讀約 "+pct+"%";
+}
+window.addEventListener("scroll",function(){if($("panel-read").classList.contains("active"))updateReadProgress();},{passive:true});
+
+/* ---------- 音效（WebAudio 合成，無外部音檔） ---------- */
+var AC=null;
+function audio(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}}if(AC&&AC.state==="suspended")AC.resume();return AC;}
+function fishSound(){
+  if(!$("soundToggle").checked)return;var ac=audio();if(!ac)return;
+  var o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.setValueAtTime(420,ac.currentTime);o.frequency.exponentialRampToValueAtTime(120,ac.currentTime+.09);
+  g.gain.setValueAtTime(.5,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.16);
+  o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.17);
+}
+function bellSound(){
+  var ac=audio();if(!ac)return;
+  [528,792,1056].forEach(function(f,i){var o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=f;
+  g.gain.setValueAtTime(.22/(i+1),ac.currentTime);g.gain.exponentialRampToValueAtTime(.0005,ac.currentTime+3.2);
+  o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+3.3);});
+}
+
+/* ---------- 念珠 ---------- */
+function buildMala(){
+  var stage=$("malaStage");stage.innerHTML="";
+  for(var i=0;i<108;i++){
+    var b=document.createElement("span");b.className="bead"+(i===0?" guru":"");b.setAttribute("aria-hidden","true");
+    var ang=(i/108)*Math.PI*2-Math.PI/2;
+    var R=46;
+    b.style.setProperty("--pos","translate(calc(-50% + "+(Math.cos(ang)*R)+"% ), calc(-50% + "+(Math.sin(ang)*R)+"%) )");
+    /* 用百分比半徑：以容器中心為準，改用 transform 定位 */
+    b.style.left="50%";b.style.top="50%";
+    b.style.transform="translate(-50%,-50%) translate("+(Math.cos(ang)*46)+"%, "+(Math.sin(ang)*46)+"%)";
+    /* 46% 偏移以 bead 自身尺寸為單位不準，改用容器寬度：以 margin 方式改為 left/top 百分比 */
+    b.style.left=(50+Math.cos(ang)*44)+"%";b.style.top=(50+Math.sin(ang)*44)+"%";b.style.transform="translate(-50%,-50%)";
+    stage.appendChild(b);
+  }
+  var center=document.createElement("button");center.type="button";center.className="mala-center";center.id="malaCenter";
+  center.innerHTML='<span class="count" id="malaCenterCount">0</span><span class="name" id="malaCenterName">南無阿彌陀佛</span><small>點此計一聲</small>';
+  center.addEventListener("click",countMala);
+  stage.appendChild(center);
+  refreshMala();
+}
+function refreshMala(){
+  var beads=$("malaStage").querySelectorAll(".bead");
+  beads.forEach(function(b,i){b.classList.toggle("done",i<mala.count);});
+  $("malaCount").textContent=mala.count;$("malaRounds").textContent=mala.rounds;
+  var cc=$("malaCenterCount");if(cc)cc.textContent=mala.count;
+  var nm=$("malaCenterName");if(nm)nm.textContent=mala.chant;
+  $("goalText").textContent=mala.total>=mala.goal?("已達目標 "+mala.goal+" 聲，隨喜。"):("還差 "+(mala.goal-mala.total)+" 聲達到目標 "+mala.goal+" 聲。");
+  updateProgress();
+}
+function countMala(){
+  fishSound();
+  mala.count++;mala.total++;session.chants++;
+  if(mala.count>=108){mala.count=0;mala.rounds++;bellSound();toast("一圈圓滿，隨喜功德。");}
+  refreshMala();
+  if(navigator.vibrate){try{navigator.vibrate(12);}catch(e){}}
+}
+$("fishBtn").addEventListener("click",countMala);
+$("malaUndo").addEventListener("click",function(){if(mala.count>0){mala.count--;mala.total--;session.chants=Math.max(0,session.chants-1);refreshMala();}});
+$("malaReset").addEventListener("click",function(){mala.count=0;mala.rounds=0;refreshMala();toast("念珠計數已歸零。");});
+document.querySelectorAll("#chantPicker .chip").forEach(function(c){c.addEventListener("click",function(){
+  document.querySelectorAll("#chantPicker .chip").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  c.setAttribute("aria-pressed","true");mala.chant=c.getAttribute("data-chant");refreshMala();
+});});
+document.querySelectorAll("#malaGoal .chip").forEach(function(c){c.addEventListener("click",function(){
+  document.querySelectorAll("#malaGoal .chip").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  c.setAttribute("aria-pressed","true");mala.goal=parseInt(c.getAttribute("data-goal"),10);refreshMala();
+});});
+
+/* 念珠 / 靜坐切換 */
+$("subMala").addEventListener("click",function(){$("subMala").setAttribute("aria-pressed","true");$("subSit").setAttribute("aria-pressed","false");$("malaView").hidden=false;$("sitView").hidden=true;});
+$("subSit").addEventListener("click",function(){$("subSit").setAttribute("aria-pressed","true");$("subMala").setAttribute("aria-pressed","false");$("malaView").hidden=true;$("sitView").hidden=false;});
+
+/* ---------- 靜坐 ---------- */
+function renderSit(){$("sitTimer").textContent=fmtTime(sit.left);}
+document.querySelectorAll("[data-mins]").forEach(function(c){c.addEventListener("click",function(){
+  document.querySelectorAll("[data-mins]").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  c.setAttribute("aria-pressed","true");sit.mins=parseInt(c.getAttribute("data-mins"),10);if(!sit.running){sit.left=sit.mins*60;renderSit();}
+});});
+function breathCycle(){
+  var ball=$("breathBall"),lbl=$("breathLabel");
+  ball.classList.remove("in","out");
+  lbl.textContent="吸";ball.classList.add("in");
+  sit.phaseId=setTimeout(function(){lbl.textContent="呼";ball.classList.remove("in");ball.classList.add("out");
+    sit.phaseId=setTimeout(breathCycle,6000);
+  },4000);
+}
+function stopBreath(){if(sit.phaseId)clearTimeout(sit.phaseId);$("breathBall").classList.remove("in","out");$("breathLabel").textContent="預備";}
+$("sitStart").addEventListener("click",function(){
+  if(sit.running){ /* 暫停 */
+    sit.running=false;clearInterval(sit.id);stopBreath();$("sitStart").textContent="繼續靜坐";return;
+  }
+  sit.running=true;$("sitStart").textContent="暫停";
+  breathCycle();
+  sit.id=setInterval(function(){
+    sit.left--;
+    if(sit.left<=0){endSit(true);return;}
+    renderSit();
+  },1000);
+});
+function endSit(finished){
+  clearInterval(sit.id);sit.running=false;stopBreath();
+  var doneMins=sit.mins-Math.ceil(sit.left/60);
+  if(finished){doneMins=sit.mins;bellSound();toast("靜坐圓滿，鳴磬一聲。");}
+  sit.done+=Math.max(0,doneMins);session.sitMinutes+=Math.max(0,doneMins);
+  $("sitDoneLabel").textContent=sit.done+" 分鐘";
+  sit.left=sit.mins*60;renderSit();$("sitStart").textContent="開始靜坐";updateProgress();
+}
+$("sitStop").addEventListener("click",function(){if(sit.running||sit.left<sit.mins*60)endSit(false);});
+
+/* ---------- 文章 ---------- */
+var ARTICLES=[
+ {id:"start",title:"抄經，從一字開始",intro:"坐直、放鬆、慢寫。第一字寫好，就是第一步。",
+  paras:["抄經不需要準備很多東西：一張紙、一支筆，或者打開這一頁的描紅格，就可以開始。坐直，肩膀放鬆，先讀一遍開經偈，讓心慢下來，再下第一筆。","寫的時候不必求快，也不必求每一字都工整。描紅格裡的字是底樣，照著它的筆畫走，一筆是一筆。寫歪了也無妨，下一字重新開始。抄經練的是專注，不是書法比賽。","初學建議從六字大明咒或《心經》起步：字少，容易在一次靜坐裡寫完，寫完一部，心裡會有一個完整的句點。寫滿之後，記得看一眼迴向頁，再把作品下載保存。"],
+  cta:{label:"去抄《心經》",sutra:"xinjing",mode:"copy"}},
+ {id:"xinjing-note",title:"心經：二百六十字的般若要義",intro:"「色不異空，空不異色」——整部經的要義，都在這二百六十字裡。",
+  paras:["《心經》是般若思想最短的總綱。經文從觀自在菩薩「照見五蘊皆空」說起：色、受、想、行、識五蘊，看似實在，究其本性皆空；空也不是什麼都沒有，而是諸法不生不滅、不垢不淨、不增不減的本來面目。","「色不異空，空不異色，色即是空，空即是色」，說的是色與空不是兩回事：眼前的一切現象，當下即空；空性也不離開現象而存在。讀到這裡不必急著懂，先把句子抄下來、讀熟，意思會在反覆讀寫中慢慢清楚。","經文後半段從「無眼耳鼻舌身意」一路說到「無智亦無得」，最後以咒語「揭諦揭諦，波羅揭諦」收尾：度過去、度過去，到彼岸去。每天抄一遍《心經》，就是每天把這條路走一遍。"],
+  cta:{label:"去抄《心經》",sutra:"xinjing",mode:"copy"}},
+ {id:"chant-note",title:"持名念佛：一聲一念",intro:"南無阿彌陀佛，六個字，一聲就是一念。",
+  paras:["持名是最簡單的修行法門：不用背長篇經文，一句佛號反覆念，念出聲也好，默念也好，關鍵是念的時候心在佛號上，不在別處。","念珠就是幫手：撥一顆珠，念一聲佛號，滿一百零八顆為一圈。本頁的念珠、木魚、計數器都可以計數，點中央圓盤或敲木魚都算一聲，滿一圈會鳴磬提醒。","不必立很大的目標。先從每天一圈開始，念得下去，再慢慢加。念佛計數會記在首頁與統計裡，關閉頁面前看一眼，就是今天的功課。"],
+  cta:{label:"去念佛號",sutra:"fohao",mode:"copy"}},
+ {id:"read-vs-copy",title:"讀經與抄經，為什麼要分開做",intro:"讀是入門，抄是安住；讀得明白，抄得下去。",
+  paras:["讀經是先把經文讀通：字號調大，橫排直排隨喜，從卷首讀到卷尾，知道這部經在說什麼。讀的時候可以快一點，不懂的句子先放著，讀完一遍再回頭。","抄經則是慢功夫：一個字一個字地寫，寫的時候眼睛看著字、手跟著走、心停在字上。讀經時滑過去的句子，抄的時候會一個一個浮現出來，這正是抄經的用處。","建議的次序是：先讀一遍，再抄一遍，抄完再讀一遍。讀寫相參，同一部經會有不同的體會。本頁首頁的「抄經」「讀經」兩個入口，就是為這個次序準備的。"],
+  cta:{label:"去讀《金剛經》卷首",sutra:"jingang",mode:"read"}},
+ {id:"dedication",title:"寫滿一部經之後：回向",intro:"功德不獨享，回向給一切眾生。",
+  paras:["寫滿一部經，頁面會出現迴向頁，上面是課誦裡常用的回向偈：「願以此功德，莊嚴佛淨土，上報四重恩，下濟三途苦。若有見聞者，悉發菩提心，盡此一報身，同生極樂國。」","回向的意思，是把抄經的功德分享出去：不只為自己，也為父母、師長、親友與一切眾生。念一遍回向偈，再下載作品圖，這一部經才算圓滿收尾。","如果中途停下，也不用可惜：進度會保留在本次開啟中，回到同一部經可以繼續寫。寫不完的經，下一回接著寫就是。"],
+  cta:{label:"去抄《懺悔回向》",sutra:"chanhui",mode:"copy"}},
+ {id:"lichu",title:"大乘離文字普光明藏經 · 導讀",intro:"經名很長，意思卻很直接：離開文字，才見光明藏。",
+  paras:["《大乘離文字普光明藏經》的經名，點出了它的核心：文字是載道的工具，真正的光明藏不在文字裡；但若沒有文字接引，初學又無從入門。所以這部經一面用文字說法，一面提醒修行人不要執著文字。","這部經全文較長，本頁目前沒有收錄全文，只收這篇導讀。想深入閱讀，建議先從《心經》與《金剛經》卷首讀起，把「空」與「無住」的基礎打穩，再去讀長篇，比較容易相應。","讀長篇經有一個好方法：每天讀一品或一節，讀完合上書想一想，再抄下當天最有感觸的一句。積少成多，一部長經也會在不知不覺中讀完。"],
+  cta:{label:"去讀《心經》",sutra:"xinjing",mode:"read"}}
+];
+function renderArticles(){
+  var list=$("articleList");if(!list)return;list.innerHTML="";
+  ARTICLES.forEach(function(a,i){
+    var b=document.createElement("button");b.type="button";b.className="article-row";
+    b.innerHTML='<span class="num">'+(i+1)+'</span><span style="flex:1;min-width:0"><h3>'+a.title+'</h3><p>'+a.intro+'</p></span><span style="font-size:22px;color:var(--ink2)">›</span>';
+    b.addEventListener("click",function(){openArticle(a.id);});
+    list.appendChild(b);
+  });
+}
+function openArticle(id){
+  var a=ARTICLES.filter(function(x){return x.id===id;})[0];if(!a)return;
+  $("articleListView").hidden=true;$("articleView").hidden=false;
+  $("articleViewTitle").textContent=a.title;
+  $("articleBody").innerHTML=a.paras.map(function(p){return "<p>"+p+"</p>";}).join("");
+  var cta=$("articleCta");cta.innerHTML="";
+  if(a.cta){
+    var b=document.createElement("button");b.type="button";b.className="btn";b.textContent=a.cta.label;
+    b.addEventListener("click",function(){
+      selectSutra(a.cta.sutra);
+      if(a.cta.mode==="read")switchTab("read");else{switchTab("home");setTimeout(function(){$("copyWorkspace").scrollIntoView({behavior:"smooth",block:"start"});},80);}
+    });
+    cta.appendChild(b);
+  }
+  switchTab("library");
+  $("articleListView").hidden=true;$("articleView").hidden=false;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("articleBack").addEventListener("click",function(){$("articleView").hidden=true;$("articleListView").hidden=false;});
+
+/* ---------- 統計 ---------- */
+function renderStats(){
+  $("statTotalChars").textContent=session.chars;
+  $("statTotalDone").textContent=session.completed.length;
+  $("statTotalChants").textContent=mala.total;
+  $("statTotalSit").textContent=session.sitMinutes+" 分";
+  var bars=$("statBars");bars.innerHTML="";
+  SUTRAS.forEach(function(s){
+    var n=currentChars(s).length,done=doneCountFor(s.id),pct=n?Math.round(done/n*100):0;
+    var row=document.createElement("div");row.className="stat-bar-row";
+    row.innerHTML='<div class="top"><span>'+s.title+'</span><span>'+done+' / '+n+' 字 · '+pct+'%</span></div><div class="bar"><i style="width:'+pct+'%"></i></div>';
+    bars.appendChild(row);
+  });
+  document.querySelectorAll("[data-goalchars]").forEach(function(c){c.setAttribute("aria-pressed",parseInt(c.getAttribute("data-goalchars"),10)===dailyGoal?"true":"false");});
+}
+document.querySelectorAll("[data-goalchars]").forEach(function(c){c.addEventListener("click",function(){
+  dailyGoal=parseInt(c.getAttribute("data-goalchars"),10);updateProgress();renderStats();toast("每日目標已設為 "+dailyGoal+" 字。");
+});});
+
+/* ---------- 共修匯總 ---------- */
+function openGlobal(){
+  var rows=[
+    ["總抄寫字數",session.chars+" 字"],
+    ["圓滿部數",session.completed.length+" 部"],
+    ["念佛計數",mala.total+" 聲"],
+    ["靜坐合計",session.sitMinutes+" 分鐘"],
+    ["收藏經文",Object.keys(favs).length+" 部"]
+  ];
+  $("globalList").innerHTML=rows.map(function(r){return "<div><span>"+r[0]+"</span><b>"+r[1]+"</b></div>";}).join("");
+  $("globalOverlay").classList.add("open");
+}
+$("globalStatsBtn").addEventListener("click",openGlobal);
+$("globalReadBtn").addEventListener("click",openGlobal);
+$("statsGlobalBtn").addEventListener("click",openGlobal);
+$("closeGlobalBtn").addEventListener("click",function(){$("globalOverlay").classList.remove("open");});
+$("globalOverlay").addEventListener("click",function(e){if(e.target===$("globalOverlay"))$("globalOverlay").classList.remove("open");});
+
+/* ---------- 修持：工具切換 ---------- */
+function updatePracticeHome(){
+  updateProgress();
+  var sp=$("signPreview");
+  if(signDrawn.date===todayKey())sp.textContent="今日之簽：第 "+(signDrawn.idx+1)+" 簽 · "+SIGNS[signDrawn.idx].grade;
+  else sp.textContent="一日一抽，境隨心轉";
+}
+function showPracticeView(name){
+  stopFishAuto();
+  $("practiceHome").hidden=true;$("practiceTool").hidden=false;
+  $("practiceSeg").hidden=!(name==="mala"||name==="sit");
+  $("malaView").hidden=name!=="mala";$("sitView").hidden=name!=="sit";
+  $("fishView").hidden=name!=="fish";$("counterView").hidden=name!=="counter";$("signView").hidden=name!=="sign";
+  $("practiceTitle").textContent={mala:"佛珠",sit:"靜坐計時",fish:"木魚",counter:"計數器",sign:"每日一簽"}[name]||"修持";
+  if(name==="sign")updateSignView();
+}
+function showPracticeHome(){stopFishAuto();$("practiceTool").hidden=true;$("practiceHome").hidden=false;updatePracticeHome();}
+document.querySelectorAll("[data-tool]").forEach(function(b){b.addEventListener("click",function(){showPracticeView(b.getAttribute("data-tool"));});});
+$("practiceBack").addEventListener("click",showPracticeHome);
+$("dailyGoCopy").addEventListener("click",function(){switchTab("home");});
+$("dailyGoRead").addEventListener("click",function(){switchTab("read");});
+$("dailyGoMala").addEventListener("click",function(){switchTab("practice");showPracticeView("mala");});
+$("subMala").addEventListener("click",function(){$("fishView").hidden=true;$("counterView").hidden=true;$("signView").hidden=true;});
+$("subSit").addEventListener("click",function(){$("fishView").hidden=true;$("counterView").hidden=true;$("signView").hidden=true;});
+
+/* ---------- 木魚 ---------- */
+var fish={count:0,tempo:0,timer:null,auto:false};
+function stopFishAuto(){if(fish.timer){clearInterval(fish.timer);fish.timer=null;}fish.auto=false;var b=$("fishAutoBtn");if(b)b.textContent="開始自動敲擊";}
+function knockFish(){
+  fishSound();
+  fish.count++;mala.total++;session.chants++;
+  $("fishCount").textContent=fish.count;$("fishCountLabel").textContent=fish.count;
+  refreshMala();
+}
+$("woodFishBtn").addEventListener("click",knockFish);
+document.querySelectorAll("[data-tempo]").forEach(function(c){c.addEventListener("click",function(){
+  document.querySelectorAll("[data-tempo]").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  c.setAttribute("aria-pressed","true");fish.tempo=parseInt(c.getAttribute("data-tempo"),10);
+  if(fish.auto){stopFishAuto();startFishAuto();}
+});});
+function startFishAuto(){
+  if(!fish.tempo){toast("請先選一個節奏（慢 / 中 / 快）。");return;}
+  fish.auto=true;$("fishAutoBtn").textContent="停止自動敲擊";
+  knockFish();
+  fish.timer=setInterval(knockFish,Math.round(60000/fish.tempo));
+}
+$("fishAutoBtn").addEventListener("click",function(){if(fish.auto)stopFishAuto();else startFishAuto();});
+$("fishResetBtn").addEventListener("click",function(){
+  stopFishAuto();fish.count=0;$("fishCount").textContent="0";$("fishCountLabel").textContent="0";
+  toast("木魚顯示已歸零，念佛總數保留。");
+});
+
+/* ---------- 計數器 ---------- */
+var counter={value:0,goal:108};
+function renderCounter(){
+  $("counterNum").textContent=counter.value;
+  $("counterBar").style.width=Math.min(100,Math.round(counter.value/counter.goal*100))+"%";
+  $("counterGoalLabel").textContent="目標 "+counter.goal+" · "+(counter.value>=counter.goal?"已達目標，隨喜。":"還差 "+(counter.goal-counter.value));
+}
+$("counterPlus1").addEventListener("click",function(){counter.value++;renderCounter();});
+$("counterPlus10").addEventListener("click",function(){counter.value+=10;renderCounter();});
+$("counterMinus1").addEventListener("click",function(){counter.value=Math.max(0,counter.value-1);renderCounter();});
+$("counterReset").addEventListener("click",function(){counter.value=0;renderCounter();});
+document.querySelectorAll("[data-cgoal]").forEach(function(c){c.addEventListener("click",function(){
+  document.querySelectorAll("[data-cgoal]").forEach(function(x){x.setAttribute("aria-pressed","false");});
+  c.setAttribute("aria-pressed","true");counter.goal=parseInt(c.getAttribute("data-cgoal"),10);renderCounter();
+});});
+$("counterAddToTotal").addEventListener("click",function(){
+  if(!counter.value){toast("計數器目前是 0，先計幾個再併入。");return;}
+  var name=$("counterName").value.trim()||"計數";
+  mala.total+=counter.value;session.chants+=counter.value;
+  toast("「"+name+"」"+counter.value+" 次已併入今日念佛總數。");
+  counter.value=0;renderCounter();refreshMala();updateProgress();
+});
+
+/* ---------- 每日一簽 ---------- */
+var SIGNS=[
+ {grade:"上上",verse:"心安處，即是家。\n一念放下，萬境皆閒。",note:"今日宜慢：把一件拖著的事做完，把一句話好好說完。慢下來，心就安了。"},
+ {grade:"上吉",verse:"種善因，得善果。\n日日小善，終成大德。",note:"今日宜行一小善：讓座、道謝、扶一把，不必等人看見。"},
+ {grade:"中吉",verse:"雲開見月，雨過天青。\n守得住，便是晴天。",note:"若有事懸著未決，先把能做的部分做好，剩下的交給時間。"},
+ {grade:"中平",verse:"平常心，是道。\n吃飯穿衣，皆是修行。",note:"今日無大事，就是好日子。把平常事做好，就是修行。"},
+ {grade:"上吉",verse:"讀經一卷，勝過空想千遍。\n下筆一字，勝過空談萬句。",note:"今日宜抄經或讀經一小段，讀寫相參，勝過反覆思量。"},
+ {grade:"中吉",verse:"念起即覺，覺即不隨。\n一聲佛號，一念清明。",note:"今日宜持名念佛，煩惱起時先念三聲，再作決定。"},
+ {grade:"上上",verse:"布施者，福隨身。\n給人方便，自己方便。",note:"今日宜與人方便：讓一步、幫一把，福報在不知不覺中積下。"},
+ {grade:"中平",verse:"靜坐片刻，勝過奔波一日。\n身安，心安，事事安。",note:"今日宜靜坐五到十分鐘，坐直、放鬆、隨呼吸。"},
+ {grade:"中吉",verse:"懺悔如洗，洗淨重來。\n昨日種種，譬如昨日死。",note:"若有做錯的事，今日誠心懺悔一句，改過就好，不必反覆自責。"},
+ {grade:"上吉",verse:"孝親敬長，福田第一。\n一通電話，一聲問候。",note:"今日宜給父母長輩打個電話，或當面問候一聲。"},
+ {grade:"中平",verse:"知足者富，知止者安。\n夠用就好，多了是累。",note:"今日宜整理一件舊物、推掉一件不必要的應酬，給心留白。"},
+ {grade:"上吉",verse:"回向眾生，功德無量。\n一人得度，不如眾人同度。",note:"今日抄經讀經之後，念一遍回向偈，把功德分享出去。"}
+];
+function todayKey(){var d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
+var signDrawn={date:"",idx:-1};
+function updateSignView(){
+  if(signDrawn.date===todayKey()&&signDrawn.idx>=0){
+    var s=SIGNS[signDrawn.idx];
+    $("signResult").hidden=false;$("signEmpty").hidden=true;
+    $("signNo").textContent="第 "+(signDrawn.idx+1)+" 簽";
+    $("signGrade").textContent=s.grade;
+    $("signVerse").innerHTML=s.verse.replace(/\n/g,"<br/>");
+    $("signNote").textContent=s.note;
+    var d=new Date();$("signDate").textContent=d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日 · 一日一簽";
+    $("drawSignBtn").textContent="再看今日之簽";
+  }else{
+    $("signResult").hidden=true;$("signEmpty").hidden=false;
+    $("drawSignBtn").textContent="抽今日之簽";
+  }
+}
+$("drawSignBtn").addEventListener("click",function(){
+  var key=todayKey(),h=0;for(var i=0;i<key.length;i++)h=(h*31+key.charCodeAt(i))>>>0;
+  signDrawn={date:key,idx:h%SIGNS.length};
+  updateSignView();updatePracticeHome();
+  toast("今日之簽已抽出。");
+});
+
+/* ---------- 首頁分段 · 讀經返回 · 設置 ---------- */
+$("homeSegCopy").addEventListener("click",function(){switchTab("home");});
+$("homeSegRead").addEventListener("click",function(){switchTab("read");});
+$("homeSegArticle").addEventListener("click",function(){switchTab("library");});
+$("readBackHome").addEventListener("click",function(){switchTab("home");});
+$("goSettingsBtn").addEventListener("click",function(){switchTab("settings");});
+$("soundToggle2").addEventListener("change",function(){$("soundToggle").checked=this.checked;});
+$("soundToggle").addEventListener("change",function(){$("soundToggle2").checked=this.checked;});
+$("setReaderSize").addEventListener("input",function(){
+  $("fontSize").value=this.value;$("fontSizeVal").textContent=this.value;$("setReaderSizeVal").textContent=this.value;
+  $("readerText").style.fontSize=this.value+"px";
+});
+$("fontSize").addEventListener("input",function(){$("setReaderSize").value=this.value;$("setReaderSizeVal").textContent=this.value;});
+$("themeBtn2").addEventListener("click",function(){$("themeBtn").click();});
+$("exportSummaryBtn").addEventListener("click",function(){
+  var d=new Date();
+  var lines=["天易抄經 · 功課摘要","日期："+d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日","",
+    "總抄寫字數："+session.chars+" 字","圓滿部數："+session.completed.length+" 部","念佛計數："+mala.total+" 聲","靜坐合計："+session.sitMinutes+" 分鐘","收藏經文："+Object.keys(favs).length+" 部",""];
+  session.completed.forEach(function(r){lines.push("圓滿："+r.title+" · "+r.chars+" 字 · 用時 "+fmtTime(r.seconds));});
+  lines.push("","（本摘要為本次開啟的累計，關閉頁面後歸零。）");
+  downloadBlob(new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"}),"功課摘要.txt");
+  toast("功課摘要已下載。");
+});
+var clearArm=false,clearTimer=null;
+$("clearSessionBtn").addEventListener("click",function(){
+  if(!clearArm){
+    clearArm=true;this.textContent="再點一次確認清除";
+    clearTimer=setTimeout(function(){clearArm=false;$("clearSessionBtn").textContent="清除本次記錄";},3000);
+    return;
+  }
+  clearTimeout(clearTimer);clearArm=false;this.textContent="清除本次記錄";
+  session.chars=0;session.completed=[];session.lastWork=null;session.chants=0;session.sitMinutes=0;
+  progressStore={};mala.count=0;mala.rounds=0;mala.total=0;fish.count=0;counter.value=0;
+  sit.done=0;session.sitMinutes=0;
+  state.idx=0;state.done={};state.typed={};state.strokes={};state.started=false;state.elapsed=0;state.timerOn=false;stopTimer();
+  $("fishCount").textContent="0";$("fishCountLabel").textContent="0";renderCounter();refreshMala();
+  selectSutra(state.sutra.id);renderRecords();renderFavs();renderStats();updateProgress();
+  toast("本次記錄已清除，重新開始。");
+});
+
+/* ---------- 內建分享海報：本機生成，不含連結與二維碼 ---------- */
+function openShare(){$("shareOverlay").classList.add("open");}
+function closeShare(){$("shareOverlay").classList.remove("open");}
+document.querySelectorAll("[data-share-open]").forEach(function(b){b.addEventListener("click",openShare);});
+$("closeShareBtn").addEventListener("click",closeShare);
+$("shareOverlay").addEventListener("click",function(e){if(e.target===$("shareOverlay"))closeShare();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeShare();});
+function drawSharePoster(){
+  var W=1080,H=1350,c=document.createElement("canvas");c.width=W;c.height=H;var g=c.getContext("2d");
+  function rr(x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();}
+  g.fillStyle="#edf3f0";g.fillRect(0,0,W,H);
+  g.fillStyle="#1e4d44";g.fillRect(0,0,W,520);
+  g.strokeStyle="rgba(127,184,163,.45)";g.lineWidth=2;g.beginPath();g.arc(1010,60,130,0,Math.PI*2);g.stroke();
+  g.fillStyle="#bf5a36";rr(465,72,150,150,26);g.fill();
+  g.fillStyle="#ffffff";g.font="900 92px 'Noto Serif TC',serif";g.textAlign="center";g.textBaseline="middle";g.fillText("易",540,152);
+  g.fillStyle="#eef6f2";g.font="700 84px 'Noto Serif TC',serif";g.fillText("天易抄經",540,338);
+  g.font="400 30px 'Noto Sans TC',sans-serif";g.fillStyle="rgba(238,246,242,.88)";g.fillText("佛 經 抄 寫 閱 讀 · 修 行 小 助 手",540,398);
+  g.font="400 28px 'Noto Sans TC',sans-serif";g.fillStyle="#cfe6db";g.fillText("抄經 · 讀經 · 修持，一個 App 就夠了",540,458);
+  g.fillStyle="#fdfffe";rr(60,580,960,520,28);g.fill();
+  g.strokeStyle="#cbd8d2";g.lineWidth=2;rr(60,580,960,520,28);g.stroke();
+  g.textAlign="left";g.fillStyle="#1e4d44";g.font="700 34px 'Noto Sans TC',sans-serif";g.fillText("裡面有什麼",110,652);
+  g.fillStyle="#1f2b28";g.font="400 30px 'Noto Sans TC',sans-serif";
+  g.fillText("抄經描紅：手寫描紅、鍵入抄寫、全文對照",110,706);
+  g.fillText("讀經文章：橫排直排、字號行距可調",110,756);
+  g.fillText("修持工具：木魚、佛珠、計數器、靜坐、每日一簽",110,806);
+  g.fillText("9 部經文，單機記錄，不上傳數據",110,856);
+  g.strokeStyle="#cbd8d2";g.lineWidth=1;g.beginPath();g.moveTo(110,886);g.lineTo(970,886);g.stroke();
+  g.fillStyle="#1e4d44";g.font="700 34px 'Noto Sans TC',sans-serif";g.fillText("怎麼分享給朋友",110,942);
+  g.fillStyle="#1f2b28";g.font="400 30px 'Noto Sans TC',sans-serif";
+  g.fillText("1  把 App 檔案傳給朋友（微信、QQ、網盤都可以）",110,996);
+  g.fillText("2  對方收到後下載，用瀏覽器開啟",110,1046);
+  g.fillText("3  不用聯網、不用註冊，開啟就能用",110,1096);
+  g.textAlign="center";g.fillStyle="#5e726b";g.font="400 27px 'Noto Sans TC',sans-serif";
+  g.fillText("沒有連結，也沒有二維碼——直接傳檔案，開啟就能用。",540,1172);
+  g.fillStyle="#5e726b";g.font="400 25px 'Noto Sans TC',sans-serif";
+  g.fillText("天易抄經 · 單文件離線版 · 不用聯網 · 不用註冊",540,1262);
+  return c;
+}
+$("dlPosterBtn").addEventListener("click",function(){
+  var c=drawSharePoster();
+  c.toBlob(function(b){
+    if(!b){toast("分享圖生成失敗，請再試一次。");return;}
+    downloadBlob(b,"天易抄經_分享圖.png");toast("分享圖已下載，傳給朋友即可。");
+  },"image/png");
+});
+$("copyShareBtn").addEventListener("click",function(){
+  var txt=$("shareText").textContent;
+  function done(){toast("分享文字已複製，貼到聊天裡就能發。");}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,function(){toast("複製失敗，請長按上方文字手動複製。");});
+  }else{toast("這台裝置不支援一鍵複製，請長按上方文字手動複製。");}
+});
+
+/* ---------- 初始化 ---------- */
+renderHomeList("all");renderReadList();renderArticles();renderFavs();renderStats();renderCounter();buildMala();renderSit();buildCharGrid();setCurrentChar();renderReader();renderRecords();updateProgress();
+window.addEventListener("resize",function(){if($("panel-home").classList.contains("active"))resizeCanvas();});
+resizeCanvas();
+})();
+</script>
+</body>
+</html>
